@@ -1,12 +1,27 @@
 # jQuery Music App
 
-## References
+## Things I've learned
 
-- [MusicBrainz API](https://musicbrainz.org/doc/MusicBrainz_API)
-- [MusicBrainz JavaScript SDK](https://github.com/Borewit/musicbrainz-api)
-- [MusicBrainz Cover Art Archive API](https://musicbrainz.org/doc/Cover_Art_Archive/API)
-- [Lyrics.ovh](http://docs.lyricsovh.apiary.io/) - Simple API to retrieve the lyrics of a song
-- [hqjs](https://github.com/hqjs/hq) - Lightning fast, zero configuration, web application development server
+### TypeScript: "exports is not defined" error in console
+
+1. You need to change "module" value from "commonjs" to "es2015"
+   `tsconfig.json`
+
+   ```json
+   {
+     "compilerOptions": {
+       /* ... */
+       "module": "es2015"
+       /* ... */
+     }
+   }
+   ```
+
+2. Then make sure you're adding teh file extension when you're importing a module
+
+   ```js
+   import { Track } from './components/track.js'; // without .js, you'll see 404 file not found
+   ```
 
 ## hqjs
 
@@ -26,3 +41,11 @@ Also, the vsc extension feels a little bit intrusive to show its own commands (n
 5. I can search by an artist, track, or genre to see a new list.
 6. I can add a song to personal playlist.
 7. I can click on a link to go to the song's youtube or spotify page.
+
+## References
+
+- [MusicBrainz API](https://musicbrainz.org/doc/MusicBrainz_API)
+- [MusicBrainz JavaScript SDK](https://github.com/Borewit/musicbrainz-api)
+- [MusicBrainz Cover Art Archive API](https://musicbrainz.org/doc/Cover_Art_Archive/API)
+- [Lyrics.ovh](http://docs.lyricsovh.apiary.io/) - Simple API to retrieve the lyrics of a song
+- [hqjs](https://github.com/hqjs/hq) - Lightning fast, zero configuration, web application development server
