@@ -1,0 +1,7 @@
+{
+  "name": "jquery-music-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Hayoun Lee <sidhlee@gmail.com>",
+  "license": "MIT"
+}
