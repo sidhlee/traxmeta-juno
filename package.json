@@ -3,5 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "Hayoun Lee <sidhlee@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.2.2"
+  },
+  "scripts": {
+    "start": "tsc --watch"
+  }
 }

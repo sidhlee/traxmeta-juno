@@ -1,3 +1,5 @@
+import { Track } from './components/track.js';
+
 class Test {
   static test() {
     console.log('testing');
@@ -5,3 +7,4 @@ class Test {
 }
 
 Test.test();
+Track.test();
