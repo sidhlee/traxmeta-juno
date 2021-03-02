@@ -23,14 +23,28 @@
    import { Track } from './components/track.js'; // without .js, you'll see 404 file not found
    ```
 
-## hqjs
+### hqjs
 
 It's really cool that I'm able to write typescript and sass out of the box, but I needed an option to choose different targets (ES5 vs ES6) and between minified/non-minified version.  
 Also, the vsc extension feels a little bit intrusive to show its own commands (not just one!) in every time I right-click on a file.
 
-## Integrating TypeScript with Webpack
+### Live Sass Compiler: changing output path
 
-- https://medium.com/jspoint/integrating-typescript-with-webpack-4534e840a02b
+`settings.json`
+
+```json
+{
+  /* ... */
+  "liveSassCompile.settings.formats": [
+    {
+      "extensionName": ".css",
+      "format": "expanded",
+      "savePath": "/"
+    }
+  ],
+  "liveSassCompile.settings.generateMap": false
+}
+```
 
 ## User Stories
 
