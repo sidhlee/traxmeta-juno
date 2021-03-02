@@ -46,6 +46,11 @@ Also, the vsc extension feels a little bit intrusive to show its own commands (n
 }
 ```
 
+### Relative vs absolute import with TypeScript
+
+You can use relative import with TypeScript by setting `compilerOptions.module` to 'es2015' or higher, but this does not give you the ability to import libraries under `node_modules` with absolute import.  
+You need a module bundler or loader for that (eg. Webpack.)
+
 ## User Stories
 
 1. I can see a list of song covers when the main page loads.
