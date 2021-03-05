@@ -12,4 +12,4 @@ Track.test();
 $('#app').text('hey');
 // console.log(uuid());
 
-console.log('hello again');
+console.log(process.env.API_LASTFM);

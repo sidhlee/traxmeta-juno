@@ -17,9 +17,12 @@
     "webpack-dev-server": "^3.11.2"
   },
   "scripts": {
-    "start": "webpack serve",
+    "start": "env-cmd -f src/config/dev.env webpack serve",
     "build": "webpack"
   },
-  "dependencies": {},
+  "dependencies": {
+    "env-cmd": "^10.1.0",
+    "process": "^0.11.10"
+  },
   "repository": "https://github.com/toypiano/jquery-music-app.git"
 }

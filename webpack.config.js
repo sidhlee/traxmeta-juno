@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack')
 
 module.exports = {
   mode: 'development',
@@ -47,4 +48,10 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js'],
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      process: 'process/browser'
+    }),
+    new webpack.EnvironmentPlugin(['API_LASTFM','SECRET_LASTFM', 'API_SPOTIFY', 'SECRET_SPOTIFY']),
+  ]
 };
