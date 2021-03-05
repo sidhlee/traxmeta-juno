@@ -1,4 +1,4 @@
-// import { v4 as uuid } from 'uuid';
+import './style.scss';
 import { Track } from './components/track';
 
 class Test {

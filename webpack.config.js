@@ -20,6 +20,28 @@ module.exports = {
         use: 'ts-loader',
         exclude: /mode_modules/,
       },
+      {
+        test: /\.s[ac]ss$/i,
+        // Chain the sass-loader with the css-loader and the style-loader to immediately apply all styles to the DOM or the mini-css-extract-plugin to extract it into a separate file.
+        use: [
+          // Creates `style` nodes from JS strings
+          'style-loader',
+          {
+            // Translates CSS into CommonJS
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+          {
+            // Compiles Sass to CSS
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+        ],
+      },
     ],
   },
   resolve: {
