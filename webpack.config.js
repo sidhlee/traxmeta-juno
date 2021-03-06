@@ -1,5 +1,5 @@
 const path = require('path');
-const webpack = require('webpack')
+const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
@@ -50,8 +50,13 @@ module.exports = {
   },
   plugins: [
     new webpack.ProvidePlugin({
-      process: 'process/browser'
+      process: 'process/browser',
     }),
-    new webpack.EnvironmentPlugin(['API_LASTFM','SECRET_LASTFM', 'API_SPOTIFY', 'SECRET_SPOTIFY']),
-  ]
+    new webpack.EnvironmentPlugin([
+      'API_LASTFM',
+      'SECRET_LASTFM',
+      'API_SPOTIFY',
+      'SECRET_SPOTIFY',
+    ]),
+  ],
 };

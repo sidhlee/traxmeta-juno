@@ -6,6 +6,8 @@
   --clr-danger: #bd3200;
   --text-main: #ffffff;
   --text-muted: #959595;
+
+  --fz-sm: 0.75rem;
 }
 
 html {
@@ -37,6 +39,61 @@ ul {
   padding: 0;
 }
 
+li {
+  list-style: none;
+}
+
+button {
+  font: inherit;
+  background: transparent;
+  border: none;
+}
+
+/* Utility */
+.accent {
+  color: var(--clr-accent);
+  border-color: var(--clr-accent);
+}
+
+.btn {
+  padding: 0.25em 0.1em;
+  border-bottom: 1px solid;
+  display: inline-block;
+}
+
+/*  Components */
+.chart-item {
+  display: flex;
+  align-items: center;
+  font-size: var(--fz-sm);
+  border-bottom: 1px solid var(--text-muted);
+  .chart-item__text {
+    flex-basis: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0.5em 0;
+    &--rank {
+      margin: 1em;
+      color: vaR(--text-muted);
+    }
+    &-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    &--title {
+      text-align: left;
+      font-weight: bold;
+      margin-right: 1em;
+      margin-bottom: 0.25em;
+    }
+    &--artist {
+      text-align: right;
+      margin-left: auto;
+      color: var(--text-muted);
+    }
+  }
+}
+
 /* Layout */
 .app {
   width: 100%;
@@ -47,8 +104,19 @@ ul {
   top: 0;
   left: 0;
   width: 100%;
-  background: pink;
+  background: var(--clr-primary-light);
   min-height: 100%;
+  .chart-list {
+    padding: 1em;
+  }
+}
+
+.chart-header {
+  background: var(--clr-black);
+  padding: 1em;
+  .chart-name {
+    text-align: right;
+  }
 }
 
 .meta {
@@ -56,6 +124,21 @@ ul {
   top: 0;
   left: 0;
   width: 100%;
+  min-height: 100vh;
+  background: var(--clr-primary);
 
+  transition: transform 250ms ease;
   transform: translateX(100%);
+
+  &.show {
+    transform: translateX(0%);
+  }
+
+  .back-btn {
+    position: fixed;
+    top: 1em;
+    right: 1em;
+  }
 }
+
+.

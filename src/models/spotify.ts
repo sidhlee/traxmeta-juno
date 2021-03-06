@@ -1,3 +1,21 @@
+export interface Playlist {
+  href: string;
+  items: PlaylistItem[];
+  limit: number;
+  /** query url for next page of the same playlist */
+  next: string | null;
+  offset: number;
+  /** /** query url for previous page of the same playlist */
+  previous: null | string;
+  total: number;
+}
+
+export interface PlaylistItem {
+  /** "2021-03-03T18:00:06Z" */
+  added_at: string;
+  track: Track;
+}
+
 export interface Track extends Entity {
   album: Album;
   artists: ArtistInfo[];
