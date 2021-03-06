@@ -1,0 +1,33 @@
+{
+  "external_urls": {
+    "spotify": "https://open.spotify.com/artist/1McMsnEElThX1knmY4oliG"
+  },
+  "followers": {
+    "href": null,
+    "total": 1029865
+  },
+  "genres": ["pop", "post-teen pop"],
+  "href": "https://api.spotify.com/v1/artists/1McMsnEElThX1knmY4oliG",
+  "id": "1McMsnEElThX1knmY4oliG",
+  "images": [
+    {
+      "height": 640,
+      "url": "https://i.scdn.co/image/5fb1f691c5d3cdbc54e1934c1b76e0ce00bcee9b",
+      "width": 640
+    },
+    {
+      "height": 320,
+      "url": "https://i.scdn.co/image/87a226fd8b3b7b03ead89c116b91c6b09cc3feff",
+      "width": 320
+    },
+    {
+      "height": 160,
+      "url": "https://i.scdn.co/image/a8d0cafe54e74a31af373a319742f5e746423679",
+      "width": 160
+    }
+  ],
+  "name": "Olivia Rodrigo",
+  "popularity": 89,
+  "type": "artist",
+  "uri": "spotify:artist:1McMsnEElThX1knmY4oliG"
+}

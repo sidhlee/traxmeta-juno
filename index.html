@@ -6,12 +6,77 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;700&display=swap" rel="stylesheet">
   <script type="module" src="dist/bundle.js"></script>
 </head>
 
 <body>
-  <div id="app"></div>
+  <div id="app" class="app">
+    <div class="chart">
+      <header class="chart__header">
+        <div class="logo">
+          <svg width="175" height="49" viewBox="0 0 175 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.8977 17.3636H13.6477V13.5455H28.8182V17.3636H23.5682V31H18.8977V17.3636Z" fill="#61AABA" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M35.3402 31H30.6016V13.5455H38.1357C42.0135 13.5455 44.6129 15.7614 44.6129 19.4773C44.6129 21.8977 43.505 23.5938 41.647 24.4886L45.1925 31H40.0447L36.9766 25.2386H35.3402V31ZM35.3402 17.3295V21.5568H37.0107C38.6726 21.5568 39.6697 20.9688 39.6697 19.4773C39.6697 17.9773 38.6726 17.3295 37.0107 17.3295H35.3402Z"
+              fill="#61AABA" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M52.1726 27.6591L51.1669 31H46.0533L51.8146 13.5455H58.2919L64.0533 31H58.9396L57.9339 27.6591H52.1726ZM54.9851 18.3523L53.2464 24.1136H56.8601L55.1214 18.3523H54.9851Z"
+              fill="#61AABA" />
+            <path
+              d="M65.4957 13.5455H70.8139L73.6776 18.625H73.8139L76.7116 13.5455H81.9957L76.7798 22.2727L82.2003 31H76.7798L73.8139 25.8182H73.6776L70.7116 31H65.3253L70.6776 22.2727L65.4957 13.5455Z"
+              fill="#61AABA" />
+            <path
+              d="M88.6754 31H84.0391V13.5455H89.9368L93.9936 23.4318H94.1982L98.255 13.5455H104.153V31H99.5163V20.9091H99.38L95.4936 30.8636H92.6982L88.8118 20.8409H88.6754V31Z"
+              fill="#61AABA" />
+            <path
+              d="M118.944 31H106.398V13.5455H118.978V17.3636H111.137V20.3636H118.33V24.1818H111.137V27.1818H118.944V31Z"
+              fill="#61AABA" />
+            <path d="M126.101 17.3636H120.851V13.5455H136.021V17.3636H130.771V31H126.101V17.3636Z" fill="#61AABA" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M141.118 27.6591L140.112 31H134.999L140.76 13.5455H147.237L152.999 31H147.885L146.879 27.6591H141.118ZM143.93 18.3523L142.192 24.1136H145.805L144.067 18.3523H143.93Z"
+              fill="#61AABA" />
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0H167.859V43.4978H0V0ZM1 1H166.859V42.4978H1V1Z"
+              fill="#61AABA" />
+            <path d="M167.804 43.4978L174 48.5557H6.19585L0 43.4978L167.804 43.4978Z" fill="#61AABA" />
+            <path d="M175 5.4433L169 0V43.0515L175 48V5.4433Z" fill="#61AABA" />
+          </svg>
+        </div>
+        <div class="chart-name">
+          <p>Global Top 200</p>
+        </div>
+      </header>
+      <main class="chart__main">
+        <ul class="chart-list"></ul>
+      </main>
+    </div>
+    <div class="meta">
+      <div class="meta__hero">
+        <div class="track-info">
+          <span class="track-rank">#1</span>
+          <h1 class="track-title">drivers license</h1>
+          <p class="track-artist">by Olivia Rodrigo</p>
+          <div class="gategories">
+          </div>
+          <ul class="track-stats"></ul>
+        </div>
+        <div class="album-cover">
+        </div>
+        <div class="lyrics">
+          <h2>Lyrics</h2>
+          <p class="lyrics-text"></p>
+        </div>
+        <div class="artist">
+          <div class="artist-image"></div>
+          <div class="bio">
+            <p class="bio-text"></p>
+          </div>
+          <div class="tags"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"
     integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>

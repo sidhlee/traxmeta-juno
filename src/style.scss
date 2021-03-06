@@ -1,5 +1,61 @@
-$bg: lightblue;
+:root {
+  --clr-black: #000000;
+  --clr-primary: #1f1e1e;
+  --clr-primary-light: #232222;
+  --clr-accent: #61aaba;
+  --clr-danger: #bd3200;
+  --text-main: #ffffff;
+  --text-muted: #959595;
+}
+
+html {
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
 
 body {
-  background: darken($bg, 20%);
+  background: var(--clr-black);
+  margin: 0;
+  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Normalize */
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+/* Layout */
+.app {
+  width: 100%;
+}
+
+.chart {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: pink;
+  min-height: 100%;
+}
+
+.meta {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  transform: translateX(100%);
 }
