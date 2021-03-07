@@ -1,6 +1,7 @@
 import playlistPageOne from '../data/playlist-page1.json';
 import playlistPageTwo from '../data/playlist-page2.json';
 import * as Spotify from '../models/spotify';
+import { getArtist } from './helpers';
 
 export class Playlist {
   public playlistItems = [] as Spotify.PlaylistItem[];
@@ -12,6 +13,7 @@ export class Playlist {
     const itemsOne = playlistPageOne.items as Spotify.PlaylistItem[];
     const itemsTwo = playlistPageTwo.items as Spotify.PlaylistItem[];
     this.playlistItems = this.playlistItems.concat(itemsOne, itemsTwo);
+    return this;
   }
   public render() {
     const tracks = this.getTracks();
@@ -28,9 +30,9 @@ export class Playlist {
       const alt = track.name;
       const rank = i + 1;
       const title = track.name;
-      const artist = this.getArtist(item.track);
+      const artist = getArtist(item.track);
       return `
-        <li class="chart-item" data-id="${track.id}" data-title="${title}" data-rank="{rank}" data-artist="${artist}">
+        <li class="chart-item" data-id="${track.id}" data-title="${title}" data-rank="${rank}" data-artist="${artist}">
           <div class="chart-item__cover"><img src="${src}" alt="${alt}"></div>
           <div class="chart-item__text">
             <span class="chart-item__text--rank">${rank}</span>
@@ -44,16 +46,5 @@ export class Playlist {
     });
 
     return tracks;
-  }
-  private getArtist(track: Spotify.Track) {
-    const artist = track.artists.reduce((result, artist, i, arr) => {
-      if (i > 0) {
-        return (result += `, ${artist.name}`);
-      } else {
-        return (result += artist.name);
-      }
-    }, '');
-
-    return artist;
   }
 }

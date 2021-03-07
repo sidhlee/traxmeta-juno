@@ -1,3 +1,7 @@
+$tablet: 700px;
+$desktop: 1200px;
+$wide: 1600px;
+
 :root {
   --clr-black: #000000;
   --clr-primary: #1f1e1e;
@@ -8,6 +12,8 @@
   --text-muted: #959595;
 
   --fz-sm: 0.75rem;
+
+  --z-meta-header: 1000;
 }
 
 html {
@@ -61,6 +67,10 @@ button {
   display: inline-block;
 }
 
+.hidden {
+  display: none;
+}
+
 /*  Components */
 .chart-item {
   display: flex;
@@ -109,6 +119,9 @@ button {
   .chart-list {
     padding: 1em;
   }
+
+  transition: transform 200ms ease;
+  transform: translateX(-100%);
 }
 
 .chart-header {
@@ -119,12 +132,13 @@ button {
   }
 }
 
+/* TODO: remove horizontal scroll */
 .meta {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
   background: var(--clr-primary);
 
   transition: transform 250ms ease;
@@ -133,12 +147,25 @@ button {
   &.show {
     transform: translateX(0%);
   }
-
-  .back-btn {
-    position: fixed;
-    top: 1em;
-    right: 1em;
-  }
 }
 
-.
+.meta__hero {
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: $tablet) {
+    min-width: 20%;
+  }
+
+  .track-info__text {
+  }
+
+  .track-info__cover {
+    img {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+  }
+}

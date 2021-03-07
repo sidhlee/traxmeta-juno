@@ -14,7 +14,7 @@ export interface Artist extends ArtistDetail, ArtistInfo {}
 
 export interface ArtistInfo {
   name: string;
-  mbid: string;
+  mbid?: string;
   url: string;
   image: Image[];
   streamable: Streamable;
@@ -25,6 +25,14 @@ export interface ArtistDetail {
   stats: ArtistStats;
   similar: Similar;
   bio: Bio;
+  tags: {
+    tag: Tag[];
+  };
+}
+
+export interface Tag {
+  name: string;
+  url: string;
 }
 
 export interface ArtistStats {
@@ -61,10 +69,10 @@ export interface Bio {
       href: string;
     };
     /** "27 Jul 2008, 15:55" */
-    published: string;
-    summary: string;
-    content: string;
   };
+  published: string;
+  summary: string;
+  content: string;
 }
 
 export interface Album {

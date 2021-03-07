@@ -12,8 +12,10 @@
 </head>
 
 <body>
+
   <div id="app" class="app">
-    <div class="chart">
+    <!-- Chart -->
+    <div class="chart show">
       <header class="chart-header">
         <div class="logo">
           <svg width="175" height="49" viewBox="0 0 175 49" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,13 +53,19 @@
         <ul class="chart-list"></ul>
       </main>
     </div>
+
+
+
+    <!-- Meta Section -->
     <div class="meta show">
-      <button class="back-btn accent btn">&lt; Back To chart</button>
+      <!-- Hero  -->
       <div class="meta__hero">
-        <div class="track-info">
-          <span class="track-rank">#1</span>
+        <!-- only show on mobile when meta is visible-->
+        <button class="back-btn accent btn">&lt; Back To chart</button>
+        <div class="track-info__text">
+          <p class="track-rank">#<span>1</span></p>
           <h1 class="track-title">drivers license</h1>
-          <p class="track-artist">by Olivia Rodrigo</p>
+          <p class="track-artist">by <span>Olivia Rodrigo</span></p>
           <div class="categories">
           </div>
           <ul class="track-stats"></ul>
@@ -66,10 +74,12 @@
           <img />
         </div>
       </div>
+      <!-- Lyrics -->
       <div class="meta__lyrics">
         <h2>Lyrics</h2>
         <p class="lyrics-text"></p>
       </div>
+      <!-- Artist Info -->
       <div class="meta__artist">
         <div class="artist-image"></div>
         <div class="bio">
@@ -78,6 +88,7 @@
         <div class="tags"></div>
       </div>
     </div>
+
   </div>
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"
