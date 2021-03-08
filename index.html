@@ -16,7 +16,7 @@
   <div id="app" class="app">
 
     <!-- Chart -->
-    <div class="chart show">
+    <div class="chart">
       <header class="chart-header">
         <div class="logo">
           <svg width="175" height="49" viewBox="0 0 175 49" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,16 +58,16 @@
 
 
     <!-- Meta Section -->
-    <div class="meta">
+    <div class="meta show">
       <!-- Hero  -->
       <div class="meta__hero">
         <!-- only show on mobile when meta is visible-->
         <button class="back-btn accent btn">&lt; Back To chart</button>
-        <div class="track-info__text">
+        <div class="track-info__text container">
           <p class="track-rank">#<span>1</span></p>
           <h1 class="track-title">drivers license</h1>
           <p class="track-artist">by <span>Olivia Rodrigo</span></p>
-          <div class="categories">
+          <div class="track-categories">
           </div>
           <ul class="track-stats"></ul>
         </div>
@@ -76,17 +76,22 @@
         </div>
       </div>
       <!-- Lyrics -->
-      <div class="meta__lyrics">
+      <div class="meta__lyrics container py-2">
         <h2>Lyrics</h2>
-        <p class="lyrics-text"></p>
+        <div class="lyrics-text"></div>
       </div>
       <!-- Artist Info -->
       <div class="meta__artist">
-        <div class="artist-image"></div>
-        <div class="bio">
-          <p class="bio-text"></p>
+        <div class="artist-image">
+          <img>
         </div>
-        <div class="tags"></div>
+        <div class="artist-text container py-2">
+          <h2 class="">Bio</h2>
+          <div class="bio">
+            <p class="bio-text"></p>
+          </div>
+          <div class="tags"></div>
+        </div>
       </div>
     </div>
 

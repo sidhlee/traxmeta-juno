@@ -46,7 +46,7 @@ export class Meta {
     $('.track-rank > span').text(this.rank);
     $('.track-title').text(this.track.name);
     $('.track-artist > span').text(getArtist(this.track));
-    $('.categories').html(this.getCategoriesHtml());
+    $('.track-categories').html(this.getCategoriesHtml());
     $('.track-stats').html(this.getStatsHtml());
 
     // Cover image
@@ -59,15 +59,16 @@ export class Meta {
   private getCategoriesHtml() {
     const genres = this.artist.genres;
     const categories = [...genres];
-    if (this.track.explicit) {
-      categories.push('explicit');
-    }
 
-    const markup = categories
+    let markup = categories
       .map((c) => {
-        return `<span class="category">${c}</span>`;
+        return `<span class="category pill">${c}</span>`;
       })
       .join('');
+
+    if (this.track.explicit) {
+      markup += `<span class="category pill danger">explicit</span>`;
+    }
 
     return markup;
   }
@@ -96,11 +97,29 @@ export class Meta {
   }
 
   private renderLyrics() {
-    $('.lyrics-text').text(this.lyrics);
+    // replace new line with <br> tag
+    const lyrics = this.lyrics; //.replace(/\\n/g, '</br>');
+
+    $('.lyrics-text').html(this.lyrics);
+    // set background image with artist image
+    $('.meta__lyrics').css(
+      'background-image',
+      `url("${this.artist.images[0].url}")`
+    );
   }
 
   private renderBio() {
-    $('.bio-text').html(this.artistLastFm.bio.content);
+    $('.artist-image > img').attr({
+      src: this.artist.images[1].url,
+      alt: this.artist.name,
+    });
+
+    const bio = this.artistLastFm.bio.content
+      .trim()
+      .replace('</a>. ', '</a>.<span class="legal">')
+      .concat('</span>');
+
+    $('.bio-text').html(bio);
   }
 
   private renderTags() {
@@ -108,6 +127,6 @@ export class Meta {
     const markup = tags
       .map((tag) => `<span class="tag">#${tag.name}</span>`)
       .join('');
-    return markup;
+    $('.tags').html(markup);
   }
 }

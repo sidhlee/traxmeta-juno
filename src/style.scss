@@ -11,13 +11,17 @@ $wide: 1600px;
   --text-main: #ffffff;
   --text-muted: #959595;
 
-  --fz-sm: 0.75rem;
-
+  --fz-xs: 0.75rem;
+  --fz-sm: 0.9rem;
+  --fz-meta-rank: 1.75rem;
+  --fz-meta-title: 2.25rem;
+  --fz-meta-artist: 1.25rem;
   --z-meta-header: 1000;
 }
 
 html {
   box-sizing: border-box;
+  font-size: 90%;
 }
 *,
 *::before,
@@ -55,6 +59,10 @@ button {
   border: none;
 }
 
+a {
+  color: var(--clr-accent);
+}
+
 /* Utility */
 .accent {
   color: var(--clr-accent);
@@ -69,6 +77,19 @@ button {
 
 .hidden {
   display: none;
+}
+
+.danger {
+  color: var(--clr-danger);
+}
+
+.container {
+  padding: 0 1em;
+}
+
+.py-2 {
+  padding-top: 2em;
+  padding-bottom: 2em;
 }
 
 /*  Components */
@@ -102,6 +123,13 @@ button {
       color: var(--text-muted);
     }
   }
+}
+
+.pill {
+  border: 1px solid;
+  border-color: currentColor;
+  padding: 0.2em 0.3em;
+  border-radius: 0.25rem;
 }
 
 /* Layout */
@@ -149,7 +177,7 @@ button {
   top: 0;
   left: 0;
   width: 100%;
-  min-height: 100%;
+  height: 100%;
   background: var(--clr-primary);
 
   transition: all 250ms ease;
@@ -160,25 +188,166 @@ button {
     transform: translateX(0%);
     opacity: 1;
   }
+
+  h2 {
+    font-weight: 200;
+    color: var(--text-muted);
+    margin-bottom: 1em;
+  }
 }
 
 .meta__hero {
   min-width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 
   @media (min-width: $tablet) {
     min-width: 20%;
+    width: auto;
+  }
+  .back-btn {
+    align-self: flex-end;
+    position: relative;
+    top: 1em;
+    right: 1em;
   }
 
   .track-info__text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    .track-rank {
+      margin-right: auto;
+      font-size: var(--fz-meta-rank);
+      font-style: italic;
+      line-height: 1;
+    }
+    .track-title {
+      font-size: var(--fz-meta-title);
+    }
+    .track-artist {
+      font-size: var(--fz-meta-artist);
+      font-weight: 200;
+    }
+    .track-categories {
+      font-size: var(--fz-xs);
+      color: var(--text-muted);
+      margin: 0.5em;
+      .category {
+        margin: 0.25em;
+        text-transform: capitalize;
+        display: inline-block; /* capitalize doesn't work properly with inline elements because last character is concatenated with first character*/
+      }
+    }
+    .track-stats {
+      font-size: var(--fz-sm);
+      color: var(--text-muted);
+      text-transform: capitalize;
+      li:not(:last-of-type) {
+        margin-bottom: 0.25em;
+      }
+    }
   }
 
   .track-info__cover {
+    position: relative;
+
     img {
       display: block;
       height: 100%;
       width: 100%;
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      background: linear-gradient(
+        180deg,
+        var(--clr-primary) 0%,
+        rgba(31, 30, 30, 0) 29.86%
+      );
+      box-shadow: 0px 4px 23px -3px rgba(0, 0, 0, 0.25);
+    }
+  }
+}
+
+.meta__lyrics {
+  position: relative;
+  background-position: top center;
+  background-size: fill;
+  background-repeat: repeat-y;
+  z-index: -20;
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    z-index: -10;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(
+      180deg,
+      #1f1e1e 0%,
+      rgba(31, 30, 30, 0.87) 29.69%,
+      #1f1e1e 98.19%
+    );
+  }
+
+  .lyrics-text {
+    position: relative;
+    z-index: 50;
+    white-space: pre-line; // preserve breaks in original text (eg. \n\r)
+  }
+}
+
+.meta__artist {
+  background: var(--clr-primary);
+  .artist-image {
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(24, 23, 23, 0.38) 0%,
+        rgba(171, 171, 171, 0) 34.38%,
+        rgba(56, 56, 56, 0) 67.19%,
+        #1f1e1e 100%
+      );
+    }
+  }
+
+  .bio-text {
+    white-space: pre-line;
+  }
+  .legal {
+    display: block;
+    margin: 1em;
+    color: var(--text-muted);
+    font-size: var(--fz-sm);
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    color: var(--clr-accent);
+    .tag {
+      margin: 0.25em;
     }
   }
 }
