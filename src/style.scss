@@ -107,6 +107,12 @@ button {
 /* Layout */
 .app {
   width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow-x: hidden;
 }
 
 .chart {
@@ -120,8 +126,13 @@ button {
     padding: 1em;
   }
 
-  transition: transform 200ms ease;
+  transition: all 250ms ease;
   transform: translateX(-100%);
+  opacity: 0;
+  &.show {
+    transform: translateX(0%);
+    opacity: 1;
+  }
 }
 
 .chart-header {
@@ -141,11 +152,13 @@ button {
   min-height: 100%;
   background: var(--clr-primary);
 
-  transition: transform 250ms ease;
+  transition: all 250ms ease;
   transform: translateX(100%);
+  opacity: 0;
 
   &.show {
     transform: translateX(0%);
+    opacity: 1;
   }
 }
 
@@ -169,3 +182,7 @@ button {
     }
   }
 }
+
+// * {
+//   border: 1px solid #f00 !important;
+// }

@@ -2,9 +2,9 @@ import * as Spotify from '../models/spotify';
 import * as LastFm from '../models/last-fm';
 import { getArtist, formatDuration } from './helpers';
 import track from '../data/track.json';
-import { lyrics } from '../data/lyrics.json';
+import lyrics from '../data/lyrics.json';
 import artist from '../data/artist.json';
-import { artist as artistLastFm } from '../data/artist.lastfm.json';
+import artistLastFm from '../data/artist.lastfm.json';
 
 export class Meta {
   private track = {} as Spotify.Track;
@@ -26,9 +26,9 @@ export class Meta {
 
   public fetch() {
     this.track = track as Spotify.Track;
-    this.lyrics = lyrics;
+    this.lyrics = lyrics.lyrics;
     this.artist = artist as Spotify.Artist;
-    this.artistLastFm = (artistLastFm as unknown) as LastFm.Artist;
+    this.artistLastFm = (artistLastFm.artist as unknown) as LastFm.Artist;
     return this;
   }
 
