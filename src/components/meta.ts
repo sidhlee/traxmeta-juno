@@ -110,7 +110,7 @@ export class Meta {
 
   private renderBio() {
     $('.artist-image > img').attr({
-      src: this.artist.images[1].url,
+      src: this.artist.images[0].url,
       alt: this.artist.name,
     });
 

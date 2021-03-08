@@ -16,7 +16,7 @@
   <div id="app" class="app">
 
     <!-- Chart -->
-    <div class="chart">
+    <div class="chart show">
       <header class="chart-header">
         <div class="logo">
           <svg width="175" height="49" viewBox="0 0 175 49" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,14 +51,14 @@
         </div>
       </header>
       <main class="chart__main">
-        <ul class="chart-list"></ul>
+        <ul class="chart-list container"></ul>
       </main>
     </div>
 
 
 
     <!-- Meta Section -->
-    <div class="meta show">
+    <div class="meta">
       <!-- Hero  -->
       <div class="meta__hero">
         <!-- only show on mobile when meta is visible-->
@@ -76,13 +76,15 @@
         </div>
       </div>
       <!-- Lyrics -->
-      <div class="meta__lyrics container py-2">
-        <h2>Lyrics</h2>
-        <div class="lyrics-text"></div>
+      <div class="meta__lyrics py-2">
+        <div class="lyrics-content container">
+          <h2>Lyrics</h2>
+          <div class="lyrics-text"></div>
+        </div>
       </div>
       <!-- Artist Info -->
       <div class="meta__artist">
-        <div class="artist-image">
+        <div class="artist-image py-2">
           <img>
         </div>
         <div class="artist-text container py-2">
