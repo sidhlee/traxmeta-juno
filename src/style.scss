@@ -1,3 +1,4 @@
+$mobile: 350px;
 $tablet: 700px;
 $desktop: 1200px;
 $wide: 1600px;
@@ -100,6 +101,13 @@ img {
   padding-bottom: 2em;
 }
 
+@mixin reset-visibility {
+  position: relative;
+  transform: translateX(0%);
+  opacity: 1;
+  overflow-y: scroll;
+}
+
 /*  Components */
 .chart-item {
   height: 20vw;
@@ -165,7 +173,15 @@ img {
   bottom: 0;
   left: 0;
   overflow-x: hidden;
+  @media (min-width: $desktop) {
+    display: flex;
+    overflow-y: hidden;
+  }
 }
+
+/* ======================================
+ * CHART    
+ * ======================================*/
 
 .chart {
   position: absolute;
@@ -185,6 +201,16 @@ img {
     transform: translateX(0%);
     opacity: 1;
   }
+
+  @media (min-width: $desktop) {
+    @include reset-visibility;
+    flex: 1 1 $mobile;
+
+    .chart-item {
+      height: 5vw;
+      font-size: 80%;
+    }
+  }
 }
 
 .chart-header {
@@ -194,6 +220,10 @@ img {
     text-align: right;
   }
 }
+
+/* ======================================
+ * META
+ * ======================================*/
 
 /* TODO: remove horizontal scroll */
 .meta {
@@ -217,6 +247,12 @@ img {
     font-weight: 200;
     color: var(--text-muted);
     margin-bottom: 1em;
+  }
+
+  @media (min-width: $desktop) {
+    @include reset-visibility;
+
+    flex: 2.5 2.5 $tablet;
   }
 }
 
