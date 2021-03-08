@@ -11,6 +11,7 @@ $wide: 1600px;
   --clr-danger: #bd3200;
   --text-main: #ffffff;
   --text-muted: #959595;
+  --text-soft: #dfdfdf;
 
   --fz-xs: 0.75rem;
   --fz-sm: 0.9rem;
@@ -182,7 +183,7 @@ img {
 /* ======================================
  * CHART    
  * ======================================*/
-
+//TODO: add shadow to make chart on top of meta
 .chart {
   position: absolute;
   top: 0;
@@ -359,6 +360,7 @@ img {
   }
 
   .lyrics-text {
+    color: var(--text-soft);
     position: relative;
     z-index: 50;
     white-space: pre-line; // preserve breaks in original text (eg. \n\r)
@@ -389,6 +391,7 @@ img {
 
   .bio-text {
     white-space: pre-line;
+    color: var(--text-soft);
   }
   .legal {
     display: block;
