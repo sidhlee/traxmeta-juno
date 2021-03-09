@@ -54,6 +54,11 @@ export class Meta {
       src: track.album.images[0].url, // 640 * 640 px
       alt: track.name,
     });
+
+    $('.meta__hero').css(
+      'background-image',
+      `url("${this.track.album.images[0].url}")`
+    );
   }
 
   private getCategoriesHtml() {
@@ -116,6 +121,7 @@ export class Meta {
 
     const bio = this.artistLastFm.bio.content
       .trim()
+      .replace('<a', '<br><a')
       .replace('</a>. ', '</a>.<span class="legal">')
       .concat('</span>');
 
