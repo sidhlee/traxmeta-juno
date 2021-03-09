@@ -102,6 +102,10 @@ img {
   padding-bottom: 2em;
 }
 
+.shadow {
+  box-shadow: 1px 0 6px 0px rgba(0, 0, 0, 0.2);
+}
+
 @mixin reset-visibility {
   position: relative;
   transform: translateX(0%);
@@ -183,7 +187,7 @@ img {
 /* ======================================
  * CHART    
  * ======================================*/
-//TODO: add shadow to make chart on top of meta
+
 .chart {
   position: absolute;
   top: 0;
@@ -191,6 +195,7 @@ img {
   width: 100%;
   background: var(--clr-primary-light);
   min-height: 100%;
+  z-index: 200; // for shadow to draw on meta section
   .chart-list {
     padding: 1em;
   }
@@ -225,7 +230,6 @@ img {
  * META
  * ======================================*/
 
-/* TODO: remove horizontal scroll */
 .meta {
   position: absolute;
   top: 0;
