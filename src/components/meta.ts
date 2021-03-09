@@ -1,6 +1,6 @@
 import * as Spotify from '../models/spotify';
 import * as LastFm from '../models/last-fm';
-import { getArtist, formatDuration } from './helpers';
+import { getArtist, formatDuration } from '../utils';
 import track from '../data/track.json';
 import lyrics from '../data/lyrics.json';
 import artist from '../data/artist.json';

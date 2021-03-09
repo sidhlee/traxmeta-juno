@@ -1,20 +1,12 @@
-import playlistPageOne from '../data/playlist-page1.json';
-import playlistPageTwo from '../data/playlist-page2.json';
 import * as Spotify from '../models/spotify';
-import { getArtist } from './helpers';
+import { getArtist } from '../utils';
 
 export class Playlist {
-  public playlistItems = [] as Spotify.PlaylistItem[];
   private $chartList = $('.chart-list') as JQuery;
-  constructor(private id: string) {}
+  constructor(private playlistItems: Spotify.PlaylistItem[]) {}
 
-  public fetch() {
-    // TODO: replace with real api call
-    const itemsOne = playlistPageOne.items as Spotify.PlaylistItem[];
-    const itemsTwo = playlistPageTwo.items as Spotify.PlaylistItem[];
-    this.playlistItems = this.playlistItems.concat(itemsOne, itemsTwo);
-    return this;
-  }
+  static fetch() {}
+
   public render() {
     const tracks = this.getTracks();
     this.$chartList.html(tracks.join(''));

@@ -2,8 +2,19 @@ import './style.scss';
 import { Playlist } from './components/playlist';
 import { Meta } from './components/meta';
 
-const playlist = new Playlist('200');
-playlist.fetch().render();
+import * as Spotify from './models/spotify';
+
+import { fetchToken } from './utils';
+
+import playlistPageOne from './data/playlist-page1.json';
+import playlistPageTwo from './data/playlist-page2.json';
+
+const itemsOne = playlistPageOne.items as Spotify.PlaylistItem[];
+const itemsTwo = playlistPageTwo.items as Spotify.PlaylistItem[];
+const playlistItems = [...itemsOne, ...itemsTwo];
+
+const playlist = new Playlist(playlistItems);
+playlist.render();
 
 const $chart = $('.chart');
 const $chartItems = $('.chart-item');
@@ -32,3 +43,6 @@ $('.back-btn').on('click', function () {
 });
 
 // TODO: slide between chart and meta with gesture (on mobile)
+(async () => {
+  console.log(await fetchToken());
+})();
