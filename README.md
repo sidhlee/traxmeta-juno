@@ -17,7 +17,8 @@
    }
    ```
 
-2. Then make sure you're adding teh file extension when you're importing a module
+2. Then make sure you're adding the file extension when you're importing a module  
+    (don't when you're using webpack.)
 
    ```js
    import { Track } from './components/track.js'; // without .js, you'll see 404 file not found
@@ -50,16 +51,54 @@ Also, the vsc extension feels a little bit intrusive to show its own commands (n
 
 You can use relative import with TypeScript by setting `compilerOptions.module` to 'es2015' or higher, but this does not give you the ability to import libraries under `node_modules` with absolute import.  
 You need a module bundler or loader for that (eg. Webpack.)
-musis
+
+### ✨Netlify Dev & Functions✨
+
+Netlify dev allows you to run entire netlify platform on your local machine so that you can:
+
+- Test your app/site before deploying it to the netlify.
+- Test site generator (eg. SSR), API integrations, serverless functions, etc...
+- Have access to the ENV variable that you set up in your Netlify dashboard.
+- Make request to the serverless functions through Netlify dev server.  
+  (eg. `http://localhost:8888/.netlify/functions/get-token`)
+
+So the typical workflow would be:
+
+1. Have you installed `netlify-cli` globally? If yes, go to 2.
+2. Run `netlify dev`
+3. Is your site working as normal? If not, create and setup `netlify.toml` file.
+4. Write your serverless functions inside `/netlify/functions` folder.
+5. Make requests to the functions at the endpoint described above.
+
+### Netlify.toml
+
+Netlify dev will try to detect the site generator or build command that you're using, but if the app is not working as you expected, you can tell Netlify how to start your dev server. If you're using a build-tool or framework like `react-react-app` or `webpack`, you can specify the `targetPort` that your project is served at.
+
+```toml
+# sample netlify.toml
+[build]
+  command = "yarn run build"
+  functions = "functions" # netlify dev uses this directory to scaffold and serve your functions
+  publish = "dist"
+
+# note: each of these fields are OPTIONAL, with an exception that when you're specifying "command" and "targetPort", you must specify framework = "#custom"
+[dev]
+  framework = "#custom" # necessary when specifying both command and targetPort
+  command = "yarn start" # Command to start your dev server
+  targetPort = 8080 # The port for your application server(webpack serve), framework or site generator
+  port = 5000 # The port that the netlify dev will be accessible on
+  publish = "dist" # The path to your static content folder
+  jwtSecret = "secret" # The secret used to verify tokens for JWT based redirects
+  jwtRolePath = "app_metadata.authorization.roles" # Object path we should look for role values for JWT based redirects
+  autoLaunch = true # a Boolean value that determines if Netlify Dev launches the local server address in your browser
+```
+
 ## User Stories
 
 1. I can see a list of song covers when the main page loads.
 2. I can see a track title, artist, release year when I hover on the song cover.
 3. I can click on the song cover to open a modal with detailed track info (title, artist, year, genre, lyrics...)
 4. I can click on a button to go to a lyrics pages that shows lyrics and artist image in the background.
-5. I can search by an artist, track, or genre to see a new list.
-6. I can add a song to personal playlist.
-7. I can click on a link to go to the song's youtube or spotify page.
 
 ## References
 
