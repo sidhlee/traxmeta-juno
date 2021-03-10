@@ -7,10 +7,8 @@ import artist from '../data/artist.json';
 import artistLastFm from '../data/artist.lastfm.json';
 
 export class Meta {
-  private track = {} as Spotify.Track;
-  private lyrics = '';
-  private artist = {} as Spotify.Artist;
-  private artistLastFm = {} as LastFm.Artist;
+  private chartRank: number;
+
   /**
    * Creates meta information for given track.
    * @param id spotify track id
@@ -18,19 +16,25 @@ export class Meta {
    * @param artist
    */
   constructor(
-    private id: string,
-    private trackName: string,
-    private artistName: string,
-    private rank: number
-  ) {}
-
-  public fetch() {
-    this.track = track as Spotify.Track;
-    this.lyrics = lyrics.lyrics;
-    this.artist = artist as Spotify.Artist;
-    this.artistLastFm = (artistLastFm.artist as unknown) as LastFm.Artist;
-    return this;
+    private track: Spotify.Track,
+    private artist: Spotify.Artist,
+    private lyrics: string,
+    private artistLastFm: LastFm.Artist
+  ) {
+    const topTrack = $('.chart-item')[0];
+    const { rank } = topTrack.dataset as {
+      rank: string;
+    };
+    this.chartRank = +rank;
   }
+
+  // public fetch() {
+  //   this.track = track as Spotify.Track;
+  //   this.lyrics = lyrics.lyrics;
+  //   this.artist = artist as Spotify.Artist;
+  //   this.artistLastFm = (artistLastFm.artist as unknown) as LastFm.Artist;
+  //   return this;
+  // }
 
   public render() {
     $('.meta-header').removeClass('hidden');
@@ -43,7 +47,7 @@ export class Meta {
 
   private renderHero() {
     // Text content
-    $('.track-rank > span').text(this.rank);
+    $('.track-rank > span').text(this.chartRank);
     $('.track-title').text(this.track.name);
     $('.track-artist > span').text(getArtist(this.track));
     $('.track-categories').html(this.getCategoriesHtml());
@@ -107,12 +111,15 @@ export class Meta {
 
     $('.lyrics-text').html(this.lyrics);
     // set background image with artist image
+
+    // TODO: render multiple background-image if artists.length > 1
     $('.meta__lyrics').css(
       'background-image',
       `url("${this.artist.images[0].url}")`
     );
   }
 
+  // TODO: render multiple bio if artists.length > 1
   private renderBio() {
     $('.artist-image > img').attr({
       src: this.artist.images[0].url,

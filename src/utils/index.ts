@@ -18,31 +18,8 @@ export function formatDuration(ms: number) {
   return `${min}min ${sec}sec`;
 }
 
-export async function fetchToken() {
-  // Spotify takes base64 encoded string (binaryToAscii)
-  const authString = btoa(
-    `${process.env.API_SPOTIFY}:${process.env.SECRET_SPOTIFY}`
-  );
-
-  return $.ajax({
-    url: 'https://accounts.spotify.com/api/token',
-    method: 'POST',
-    data: {
-      grant_type: 'client_credentials',
-    },
-    contentType: 'application/x-www-form-urlencoded',
-    headers: {
-      Authorization: `Basic ${authString}`,
-    },
-    success: (data, status) => {
-      console.log('Spotify Auth: ', status);
-    },
-    error: (jqXHR, message, exception) => {
-      console.log({ jqXHR, message, exception });
-    },
-  })
-    .then((data) => {
-      return data;
-    })
-    .catch((err) => console.log(err));
+export async function request(ajaxSettings: JQueryAjaxSettings) {
+  const response = await $.ajax(ajaxSettings);
+  const { data } = JSON.parse(response);
+  return data;
 }

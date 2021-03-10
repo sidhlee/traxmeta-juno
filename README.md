@@ -93,6 +93,53 @@ Netlify dev will try to detect the site generator or build command that you're u
   autoLaunch = true # a Boolean value that determines if Netlify Dev launches the local server address in your browser
 ```
 
+### Reding local .env files from Netlify functions
+
+When you read `process.env` inside Netlify functions, it reads from the environment variable that you set with Netlify UI, not from local .env files.  
+Here's a little workaround when you want to access local env variable before deploying into Netlify and setup env variables.
+
+```js
+const path = require('path');
+const envConfig = require('dotenv').config({
+  path: path.resolve(__dirname, '../../src/config/dev.env'),
+});
+
+Object.entries(envConfig.parsed || {}).forEach(
+  ([key, value]) => (process.env[key] = value)
+);
+
+exports.handler = async function (event, context) {
+  if (event.httpMethod !== 'GET') return;
+  console.log(process.env);
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ message: 'Hello' }),
+  };
+};
+```
+
+### How to post urlencoded data with Axios
+
+Some API requires you to send post data in urlencoded format. If so, all you need to do is use `qs` package to stringify(encode) body data.
+
+```js
+const axios = require('axios').default;
+const qs = require('qs');
+
+const { data } = await axios({
+  method: 'post',
+  url: process.env.URL_TOKEN_SPOTIFY,
+  data: qs.stringify({
+    grant_type: 'client_credentials',
+  }),
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    Authorization: `Basic ${authString}`,
+  },
+});
+```
+
 ## User Stories
 
 1. I can see a list of song covers when the main page loads.

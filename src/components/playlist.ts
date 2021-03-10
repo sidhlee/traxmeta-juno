@@ -5,8 +5,6 @@ export class Playlist {
   private $chartList = $('.chart-list') as JQuery;
   constructor(private playlistItems: Spotify.PlaylistItem[]) {}
 
-  static fetch() {}
-
   public render() {
     const tracks = this.getTracks();
     this.$chartList.html(tracks.join(''));
