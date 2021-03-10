@@ -2,6 +2,30 @@
 
 ## Things I've learned
 
+### Writing Asynchronous Code with OOP
+
+...is not easy because you would normally need to pass in data into constructor to create an instance and which in turn, can be used to call public methods to do something with that data. **And this assumes that you have all the data available before you instantiate the object.** But in the real world, there are cases where you want to:
+
+- Make an api call
+- Then do something as soon as we get that data back.
+- Then while rendering the main page, you want to fetch another data behind the scene
+- Then we'll render that data as soon as we get the response.
+- But, what if server is taking too much time to response or sending back an error?
+- and many other what if's due to the nature of network request...
+
+All of these make async OOP difficult because if different fields are available at unknown points of time, you have to implement many type checking and guarding inside the method that needs that data.
+
+... but instead you can:
+
+### Write Functions for Async Task (FP!)
+
+and maybe export related functions from the same module so that later we can access them under the same namespace. With functional programing, you can:
+
+1. Write functions that takes some data and returns something (or do something.)
+2. Make the request for the data.
+3. Pass the data to the function when it becomes available.
+4. and if you want to chain next function, just pass that function as well to be called inside the first function(or better yet, use `async await`).
+
 ### TypeScript: "exports is not defined" error in console
 
 1. You need to change "module" value from "commonjs" to "es2015"

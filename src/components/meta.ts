@@ -40,17 +40,8 @@ export class Meta {
   //   return this;
   // }
 
-  public render() {
+  public renderHero() {
     $('.meta').scrollTop(0);
-    $('.meta-header').removeClass('hidden');
-
-    this.renderHero();
-    this.renderLyrics();
-    this.renderBio();
-    this.renderTags();
-  }
-
-  private renderHero() {
     // Text content
     $('.track-rank > span').text(this.trackRank);
     $('.track-title').text(this.track.name);
@@ -68,6 +59,8 @@ export class Meta {
       'background-image',
       `url("${this.track.album.images[0].url}")`
     );
+
+    $('.meta-header').removeClass('hidden');
   }
 
   private getCategoriesHtml() {
@@ -110,7 +103,7 @@ export class Meta {
     return markup;
   }
 
-  private renderLyrics() {
+  public renderLyrics() {
     // replace new line with <br> tag
     const lyrics = this.lyrics; //.replace(/\\n/g, '</br>');
 
