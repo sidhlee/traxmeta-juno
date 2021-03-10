@@ -17,9 +17,3 @@ export function formatDuration(ms: number) {
   const sec = Math.floor((ms / 1000) % 60);
   return `${min}min ${sec}sec`;
 }
-
-export async function request(ajaxSettings: JQueryAjaxSettings) {
-  const response = await $.ajax(ajaxSettings);
-  const { data } = JSON.parse(response);
-  return data;
-}

@@ -2,36 +2,32 @@ import './style.scss';
 import { Playlist } from './components/playlist';
 import { Meta } from './components/meta';
 import * as Spotify from './models/spotify';
-import { request } from './utils';
+import { getPlayListItems, getMetaData, getToken } from './data';
+import { chdir } from 'process';
 
 // TODO: slide between chart and meta with gesture (on mobile)
 (async () => {
-  const { access_token: token } = await request({
-    url: '/.netlify/functions/get-token',
-    method: 'get',
-  });
-
-  const playlistItems: Spotify.PlaylistItem[] = await request({
-    url: '/.netlify/functions/get-playlist',
-    method: 'post',
-    data: {
-      token,
-    },
-  });
-
+  const token = await getToken();
+  const playlistItems: Spotify.PlaylistItem[] = await getPlayListItems(token);
   const playlist = new Playlist(playlistItems);
   playlist.render();
 
   const $chart = $('.chart');
   const $chartItems = $('.chart-item');
   const $meta = $('.meta');
-  const topTrack = $chartItems[0];
 
-  const topTrackMeta = new Meta(id, title, artist, +rank);
+  const topTrackMetaData = await getMetaData(token, 1);
+  console.log(topTrackMetaData);
+
+  const topTrackMeta = new Meta(topTrackMetaData);
 
   topTrackMeta.render();
 
-  $chartItems.on('click', function () {
+  $chartItems.on('click', async function () {
+    const metaData = await getMetaData(token, +this.dataset.rank! as number);
+    const meta = new Meta(metaData);
+    meta.render();
+
     $chart.removeClass('show');
     $meta.addClass('show');
   });

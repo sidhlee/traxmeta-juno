@@ -2,12 +2,21 @@ import * as Spotify from '../models/spotify';
 import * as LastFm from '../models/last-fm';
 import { getArtist, formatDuration } from '../utils';
 import track from '../data/track.json';
-import lyrics from '../data/lyrics.json';
-import artist from '../data/artist.json';
-import artistLastFm from '../data/artist.lastfm.json';
+
+export interface MetaData {
+  track: Spotify.Track;
+  trackRank: number;
+  artist: Spotify.Artist;
+  lyrics: string;
+  artistLastFm: LastFm.Artist;
+}
 
 export class Meta {
-  private chartRank: number;
+  private trackRank: number;
+  private track: Spotify.Track;
+  private artist: Spotify.Artist;
+  private lyrics: string;
+  private artistLastFm: LastFm.Artist;
 
   /**
    * Creates meta information for given track.
@@ -15,17 +24,12 @@ export class Meta {
    * @param trackName
    * @param artist
    */
-  constructor(
-    private track: Spotify.Track,
-    private artist: Spotify.Artist,
-    private lyrics: string,
-    private artistLastFm: LastFm.Artist
-  ) {
-    const topTrack = $('.chart-item')[0];
-    const { rank } = topTrack.dataset as {
-      rank: string;
-    };
-    this.chartRank = +rank;
+  constructor({ track, trackRank, artist, lyrics, artistLastFm }: MetaData) {
+    this.track = track;
+    this.trackRank = trackRank;
+    this.artist = artist;
+    this.lyrics = lyrics;
+    this.artistLastFm = artistLastFm;
   }
 
   // public fetch() {
@@ -37,6 +41,7 @@ export class Meta {
   // }
 
   public render() {
+    $('.meta').scrollTop(0);
     $('.meta-header').removeClass('hidden');
 
     this.renderHero();
@@ -47,7 +52,7 @@ export class Meta {
 
   private renderHero() {
     // Text content
-    $('.track-rank > span').text(this.chartRank);
+    $('.track-rank > span').text(this.trackRank);
     $('.track-title').text(this.track.name);
     $('.track-artist > span').text(getArtist(this.track));
     $('.track-categories').html(this.getCategoriesHtml());
@@ -55,8 +60,8 @@ export class Meta {
 
     // Cover image
     $('.track-info__cover > img').attr({
-      src: track.album.images[0].url, // 640 * 640 px
-      alt: track.name,
+      src: this.track.album.images[0].url, // 640 * 640 px
+      alt: this.track.name,
     });
 
     $('.meta__hero').css(
