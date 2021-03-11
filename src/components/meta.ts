@@ -50,12 +50,22 @@ export class Meta {
     const { track, artist } = await this.loadHeroData();
 
     this.renderHero(track, artist);
-    this.loadLyrics().then((lyrics) => {
-      this.renderLyrics(lyrics, artist);
-    });
-    this.loadBioData().then((lastFmArtist) => {
-      this.renderBio(artist, lastFmArtist);
-    });
+
+    this.loadLyrics()
+      .then((lyrics) => {
+        this.renderLyrics(lyrics, artist);
+      })
+      .catch((err) => {
+        console.log(err);
+        // update background even if lyrics couldn't be fetched.
+        Meta.renderLyricsBackground(this.artist as Spotify.Artist);
+      });
+
+    this.loadBioData()
+      .then((lastFmArtist) => {
+        this.renderBio(artist, lastFmArtist);
+      })
+      .catch((err) => console.log(err));
   }
 
   // Data Loaders
@@ -158,8 +168,16 @@ export class Meta {
   }
 
   private renderLyrics(lyrics: string, artist: Spotify.Artist) {
-    $('.lyrics-text').html(lyrics);
+    console.log(artist.images[0].url);
+    $('.lyrics-text').html(
+      lyrics ||
+        '<p class="not-available">Lyrics not available at the moment.</p>'
+    );
 
+    Meta.renderLyricsBackground(artist);
+  }
+
+  private static renderLyricsBackground(artist: Spotify.Artist) {
     // TODO: render multiple background-image if artists.length > 1
     $('.meta__lyrics').css(
       'background-image',
@@ -174,11 +192,17 @@ export class Meta {
       alt: artist.name,
     });
 
-    const bio = lastFmArtist.bio.content
-      .trim()
-      .replace('<a', '<br><a')
-      .replace('</a>. ', '</a>.<span class="legal">')
-      .concat('</span>');
+    let bio;
+
+    if (lastFmArtist?.bio?.content) {
+      bio = lastFmArtist.bio.content
+        .trim()
+        .replace('<a', '<br><a')
+        .replace('</a>. ', '</a>.<span class="legal">')
+        .concat('</span>');
+    } else {
+      bio = '<p class="not-available">Bio not available at the moment.</p>';
+    }
 
     $('.bio-text').html(bio);
 

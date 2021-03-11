@@ -17,7 +17,7 @@ exports.handler = async function (event) {
   const { artistName, trackName } = qs.parse(body);
 
   const config = {
-    timeout: 5000,
+    timeout: 2000,
     method: 'get',
   };
 

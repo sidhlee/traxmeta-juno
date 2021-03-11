@@ -108,6 +108,15 @@ img {
   box-shadow: 1px 0 6px 0px rgba(0, 0, 0, 0.2);
 }
 
+.not-available {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--fz-lg);
+  color: var(--text-muted);
+}
+
 @mixin reset-visibility {
   position: relative;
   transform: translateX(0%);
@@ -434,7 +443,7 @@ img {
 .meta__lyrics {
   position: relative;
   background-position: center top;
-  background-size: 200% auto;
+  background-size: cover;
   background-repeat: repeat;
   background-color: var(--clr-primary);
   z-index: -20;
