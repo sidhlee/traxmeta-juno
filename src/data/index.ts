@@ -93,7 +93,8 @@ export async function getLyrics(artistName: string, trackName: string) {
 }
 
 export async function getLastFmArtist(artistName: string) {
-  const data = { artistName };
+  const name = artistName.split(',')[0];
+  const data = { artistName: name };
 
   const lastFmArtist: LastFm.Artist = await request({
     url: '/.netlify/functions/get-lastfm-artist',
