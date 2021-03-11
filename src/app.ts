@@ -2,8 +2,7 @@ import './style.scss';
 import { Playlist } from './components/playlist';
 import { Meta } from './components/meta';
 import * as Spotify from './models/spotify';
-import { getPlayListItems, getMetaData, getToken } from './data';
-import { chdir } from 'process';
+import { getPlayListItems, getMetaData, getToken, getHeroData } from './data';
 
 // TODO: slide between chart and meta with gesture (on mobile)
 (async () => {
@@ -16,16 +15,13 @@ import { chdir } from 'process';
   const $chartItems = $('.chart-item');
   const $meta = $('.meta');
 
-  const topTrackMetaData = await getMetaData(token, 1);
-  console.log(topTrackMetaData);
-
-  const topTrackMeta = new Meta(topTrackMetaData);
+  const topTrackMeta = new Meta(1);
 
   topTrackMeta.render();
 
   $chartItems.on('click', async function () {
-    const metaData = await getMetaData(token, +this.dataset.rank! as number);
-    const meta = new Meta(metaData);
+    const rank = this.dataset.rank as string;
+    const meta = new Meta(+rank);
     meta.render();
 
     $chart.removeClass('show');

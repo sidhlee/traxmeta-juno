@@ -16,10 +16,8 @@ exports.handler = async function (event) {
   const { body } = event;
   const { artistName } = qs.parse(body);
 
-  console.log(qs.parse(body));
-
   const config = {
-    timeout: 1000,
+    timeout: 5000,
     method: 'get',
   };
 
@@ -30,7 +28,7 @@ exports.handler = async function (event) {
     ...config,
   });
 
-  const artistLastFm = response.artist;
+  const artistLastFm = response.data.artist;
 
   return {
     statusCode: 200,

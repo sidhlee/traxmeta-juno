@@ -1,7 +1,7 @@
 import * as Spotify from '../models/spotify';
 import * as LastFm from '../models/last-fm';
 import { getArtist, formatDuration } from '../utils';
-import track from '../data/track.json';
+import { getHeroData, getLyrics, getToken, getLastFmArtist } from '../data';
 
 export interface MetaData {
   track: Spotify.Track;
@@ -12,59 +12,113 @@ export interface MetaData {
 }
 
 export class Meta {
+  private token: string | null;
+  private artist: Spotify.Artist | null;
+  private artistName: string;
+  private artistId: string;
+  private track: Spotify.Track | null;
+  private trackName: string;
+  private trackId: string;
   private trackRank: number;
-  private track: Spotify.Track;
-  private artist: Spotify.Artist;
-  private lyrics: string;
-  private artistLastFm: LastFm.Artist;
-
+  private lastFmArtist: LastFm.Artist | null;
+  private lyrics: string = '';
   /**
    * Creates meta information for given track.
    * @param id spotify track id
    * @param trackName
    * @param artist
    */
-  constructor({ track, trackRank, artist, lyrics, artistLastFm }: MetaData) {
-    this.track = track;
+  constructor(trackRank: number) {
     this.trackRank = trackRank;
-    this.artist = artist;
-    this.lyrics = lyrics;
-    this.artistLastFm = artistLastFm;
+    this.token = null;
+    this.artist = null;
+    this.track = null;
+    this.lastFmArtist = null;
+
+    const { track_id, artist_id, title, artist_name } = $('.chart-item')[
+      trackRank - 1
+    ].dataset;
+
+    this.artistName = artist_name as string;
+    this.trackName = title as string;
+    this.trackId = track_id as string;
+    this.artistId = artist_id as string;
   }
 
-  // public fetch() {
-  //   this.track = track as Spotify.Track;
-  //   this.lyrics = lyrics.lyrics;
-  //   this.artist = artist as Spotify.Artist;
-  //   this.artistLastFm = (artistLastFm.artist as unknown) as LastFm.Artist;
-  //   return this;
-  // }
+  public async render() {
+    await this.loadToken();
+    const { track, artist } = await this.loadHeroData();
 
-  public renderHero() {
+    this.renderHero(track, artist);
+    this.loadLyrics().then((lyrics) => {
+      this.renderLyrics(lyrics, artist);
+    });
+    this.loadBioData().then((lastFmArtist) => {
+      this.renderBio(artist, lastFmArtist);
+    });
+  }
+
+  // Data Loaders
+  private async loadToken() {
+    const token = await getToken();
+
+    this.token = token;
+    return token;
+  }
+
+  private async loadHeroData() {
+    const { artist, track } = await getHeroData(
+      this.token as string,
+      this.trackRank
+    );
+    this.track = track;
+    this.artist = artist;
+
+    return { track, artist };
+  }
+
+  private async loadLyrics() {
+    const lyrics = await getLyrics(this.artistName, this.trackName);
+    this.lyrics = lyrics;
+    return lyrics;
+  }
+
+  private async loadBioData() {
+    const lastFmArtist = await getLastFmArtist(this.artistName);
+    this.lastFmArtist = lastFmArtist;
+    return lastFmArtist;
+  }
+
+  // Renderers
+
+  private async renderHero(track: Spotify.Track, artist: Spotify.Artist) {
     $('.meta').scrollTop(0);
     // Text content
     $('.track-rank > span').text(this.trackRank);
-    $('.track-title').text(this.track.name);
-    $('.track-artist > span').text(getArtist(this.track));
-    $('.track-categories').html(this.getCategoriesHtml());
-    $('.track-stats').html(this.getStatsHtml());
+    $('.track-title').text(track.name);
+    $('.track-artist > span').text(getArtist(track));
+    $('.track-categories').html(Meta.getCategoriesHtml(artist, track));
+    $('.track-stats').html(Meta.getStatsHtml(track));
 
     // Cover image
     $('.track-info__cover > img').attr({
-      src: this.track.album.images[0].url, // 640 * 640 px
-      alt: this.track.name,
+      src: track.album.images[0].url, // 640 * 640 px
+      alt: track.name,
     });
 
     $('.meta__hero').css(
       'background-image',
-      `url("${this.track.album.images[0].url}")`
+      `url("${track.album.images[0].url}")`
     );
 
     $('.meta-header').removeClass('hidden');
   }
 
-  private getCategoriesHtml() {
-    const genres = this.artist.genres;
+  private static getCategoriesHtml(
+    artist: Spotify.Artist,
+    track: Spotify.Track
+  ) {
+    const genres = artist.genres;
     const categories = [...genres];
 
     let markup = categories
@@ -73,19 +127,19 @@ export class Meta {
       })
       .join('');
 
-    if (this.track.explicit) {
+    if (track.explicit) {
       markup += `<span class="category pill danger">explicit</span>`;
     }
 
     return markup;
   }
 
-  private getStatsHtml() {
+  private static getStatsHtml(track: Spotify.Track) {
     const {
       album: { release_date },
       duration_ms,
       popularity,
-    } = this.track;
+    } = track;
 
     const stats = {
       release: release_date,
@@ -103,38 +157,36 @@ export class Meta {
     return markup;
   }
 
-  public renderLyrics() {
-    // replace new line with <br> tag
-    const lyrics = this.lyrics; //.replace(/\\n/g, '</br>');
-
-    $('.lyrics-text').html(this.lyrics);
-    // set background image with artist image
+  private renderLyrics(lyrics: string, artist: Spotify.Artist) {
+    $('.lyrics-text').html(lyrics);
 
     // TODO: render multiple background-image if artists.length > 1
     $('.meta__lyrics').css(
       'background-image',
-      `url("${this.artist.images[0].url}")`
+      `url("${artist.images[0].url}")`
     );
   }
 
   // TODO: render multiple bio if artists.length > 1
-  private renderBio() {
+  private renderBio(artist: Spotify.Artist, lastFmArtist: LastFm.Artist) {
     $('.artist-image > img').attr({
-      src: this.artist.images[0].url,
-      alt: this.artist.name,
+      src: artist.images[0].url,
+      alt: artist.name,
     });
 
-    const bio = this.artistLastFm.bio.content
+    const bio = lastFmArtist.bio.content
       .trim()
       .replace('<a', '<br><a')
       .replace('</a>. ', '</a>.<span class="legal">')
       .concat('</span>');
 
     $('.bio-text').html(bio);
+
+    Meta.renderTags(lastFmArtist);
   }
 
-  private renderTags() {
-    const tags = this.artistLastFm.tags.tag;
+  private static renderTags(artistLastFm: LastFm.Artist) {
+    const tags = artistLastFm.tags.tag;
     const markup = tags
       .map((tag) => `<span class="tag">#${tag.name}</span>`)
       .join('');

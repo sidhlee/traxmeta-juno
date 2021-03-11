@@ -24,7 +24,7 @@ exports.handler = async function (event) {
     },
   };
 
-  const meta = await Promise.allSettled([
+  const heroData = await Promise.allSettled([
     axios({
       url: 'https://api.spotify.com/v1/tracks/' + spotifyTrackId,
       ...config,
