@@ -168,11 +168,16 @@ export class Meta {
   }
 
   private renderLyrics(lyrics: string, artist: Spotify.Artist) {
-    console.log(artist.images[0].url);
-    $('.lyrics-text').html(
-      lyrics ||
+    if (lyrics) {
+      $('.lyrics-text').html(
+        lyrics +
+          '<br><p class="musix-match">Lyrics powered by www.musixmatch.com. This Lyrics is NOT for Commercial use and only 30% of the lyrics are returned.</p>'
+      );
+    } else {
+      $('.lyrics-text').html(
         '<p class="not-available">Lyrics not available at the moment.</p>'
-    );
+      );
+    }
 
     Meta.renderLyricsBackground(artist);
   }

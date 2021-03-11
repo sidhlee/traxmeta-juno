@@ -117,6 +117,11 @@ img {
   color: var(--text-muted);
 }
 
+.musix-match {
+  color: var(--text-muted);
+  font-size: var(--fz-xs);
+}
+
 @mixin reset-visibility {
   position: relative;
   transform: translateX(0%);

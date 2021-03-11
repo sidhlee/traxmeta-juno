@@ -17,22 +17,36 @@ exports.handler = async function (event) {
   const { artistName, trackName } = qs.parse(body);
 
   const config = {
-    timeout: 2000,
+    timeout: 1000,
     method: 'get',
   };
 
+  const query = `?apikey=${
+    process.env.API_MUSIXMATCH
+  }&q_artist=${encodeURIComponent(artistName)}&q_track=${encodeURIComponent(
+    trackName
+  )}`;
+
   const response = await axios({
-    url: `https://api.lyrics.ovh/v1/${encodeURIComponent(
-      artistName
-    )}/${encodeURIComponent(trackName)}`,
+    url: `http://api.musixmatch.com/ws/1.1/matcher.lyrics.get` + query,
     ...config,
   });
 
-  const { lyrics } = response;
+  const {
+    message: {
+      header: { status_code },
+      body: {
+        lyrics: { lyrics_body },
+      },
+    },
+  } = response.data;
+
+  const lyrics = lyrics_body.split(
+    '******* This Lyrics is NOT for Commercial use *******'
+  )[0];
 
   return {
-    statusCode: 200,
-    // remove circular reference to be able to converted into JSON
+    statusCode: status_code,
     body: JSON.stringify({ data: lyrics }),
   };
 };
