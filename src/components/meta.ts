@@ -56,7 +56,6 @@ export class Meta {
         this.renderLyrics(lyrics, artist);
       })
       .catch((err) => {
-        console.log(err);
         // update background even if lyrics couldn't be fetched.
         Meta.renderLyricsBackground(this.artist as Spotify.Artist);
       });
@@ -102,6 +101,7 @@ export class Meta {
   // Renderers
 
   private async renderHero(track: Spotify.Track, artist: Spotify.Artist) {
+    // TODO: fix meta not scrolling to top on mobile
     $('.meta').scrollTop(0);
     // Text content
     $('.track-rank > span').text(this.trackRank);

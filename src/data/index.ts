@@ -100,7 +100,6 @@ export async function getLastFmArtist(artistName: string) {
     method: 'post',
     data,
   });
-  console.log(lastFmArtist);
 
   return lastFmArtist;
 }
