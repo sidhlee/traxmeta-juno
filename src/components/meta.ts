@@ -120,8 +120,6 @@ export class Meta {
       'background-image',
       `url("${track.album.images[0].url}")`
     );
-
-    $('.meta-header').removeClass('hidden');
   }
 
   private static getCategoriesHtml(

@@ -17,8 +17,8 @@ $wide: 1600px;
   --fz-sm: 0.9rem;
   --fz-lg: 1.5rem;
   --fz-meta-rank: 2.25rem;
-  --fz-meta-title: 2.75rem;
-  --fz-meta-artist: 1.75rem;
+  --fz-meta-title: 2.25rem;
+  --fz-meta-artist: 1.25rem;
 
   --z-meta-header: 1000;
 }
@@ -359,11 +359,13 @@ a {
       .track-title {
         font-size: calc(var(--fz-meta-title) * 0.8);
         width: fit-content;
+        text-align: center;
       }
     }
     .track-artist {
       font-size: var(--fz-meta-artist);
       font-weight: 200;
+      text-align: center;
     }
     .track-categories {
       font-size: var(--fz-xs);
@@ -404,7 +406,7 @@ a {
       background: linear-gradient(
         180deg,
         var(--clr-primary) 0%,
-        rgba(31, 30, 30, 0) 60%
+        rgba(31, 30, 30, 0) 100%
       );
       box-shadow: 0px 4px 23px -3px rgba(0, 0, 0, 0.25);
     }
@@ -447,7 +449,12 @@ a {
         margin-top: 0;
         .track-title {
           font-size: 3.2rem;
+          text-align: right;
         }
+      }
+      .track-artist {
+        font-size: calc(var(--fz-meta-artist) * 1.8);
+        text-align: right;
       }
       .track-rank {
         font-size: 3rem !important;

@@ -34,3 +34,7 @@ import { getPlayListItems, getMetaData, getToken, getHeroData } from './data';
     $meta.removeClass('show');
   });
 })();
+
+// TODO: fade components in once response is received
+// TODO: slide in rank after meta fade-in
+// TODO: animate (flip) chart-items on mount
