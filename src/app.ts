@@ -21,6 +21,7 @@ import { getPlayListItems, getMetaData, getToken, getHeroData } from './data';
 
   $chartItems.on('click', async function () {
     const rank = this.dataset.rank as string;
+
     const meta = new Meta(+rank);
     meta.render();
 
