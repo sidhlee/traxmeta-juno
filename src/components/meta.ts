@@ -1,7 +1,12 @@
 import * as Spotify from '../models/spotify';
 import * as LastFm from '../models/last-fm';
 import { getArtist, formatDuration } from '../utils';
-import { getHeroData, getLyrics, getToken, getLastFmArtist } from '../data';
+import {
+  getHeroData,
+  getLyrics,
+  getToken,
+  getLastFmArtist,
+} from '../data/mock';
 
 export interface MetaData {
   track: Spotify.Track;
