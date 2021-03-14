@@ -19,13 +19,19 @@ import {
   const $chart = $('.chart');
   const $chartItems = $('.chart-item');
   const $meta = $('.meta');
+  const $app = $('.app');
 
   const topTrackMeta = new Meta(1);
 
   topTrackMeta.render();
 
+  let top = 0;
+
   $chartItems.on('click', async function () {
     const rank = this.dataset.rank as string;
+
+    // remember scrollTop before setting it to 0 as we slide into meta section
+    top = $app.scrollTop() as number;
 
     const meta = new Meta(+rank);
     meta.render();
@@ -35,6 +41,8 @@ import {
   });
 
   $('.back-btn').on('click', function () {
+    // Set the scrollTop back to where it was before sliding into meta section
+    $app.scrollTop(top);
     $chart.addClass('show');
     $meta.removeClass('show');
   });

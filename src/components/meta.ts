@@ -51,6 +51,13 @@ export class Meta {
   }
 
   public async render() {
+    // When the user slides over to the meta section,
+    // scrollTop value for chart will automatically be applied to meta.
+    // So we need to set it back to 0 to display meta header
+    // for tracks that the user needed to scroll down to see.
+    // (we're setting it back to the original value when user clicks on 'Back to Chart' button)
+    $('.app').scrollTop(0);
+
     await this.loadToken();
     const { track, artist } = await this.loadHeroData();
 
