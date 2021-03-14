@@ -19,7 +19,7 @@ export async function getToken() {
 export async function getPlayListItems(token: string) {
   const playlistItems = [...playlistOne.items, ...playlistTwo.items];
 
-  return playlistItems;
+  return playlistItems as Spotify.PlaylistItem[];
 }
 
 export async function getMetaData(token: string, trackRank: number) {}

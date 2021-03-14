@@ -2,7 +2,12 @@ import './style.scss';
 import { Playlist } from './components/playlist';
 import { Meta } from './components/meta';
 import * as Spotify from './models/spotify';
-import { getPlayListItems, getMetaData, getToken, getHeroData } from './data';
+import {
+  getPlayListItems,
+  getMetaData,
+  getToken,
+  getHeroData,
+} from './data/mock';
 
 // TODO: slide between chart and meta with gesture (on mobile)
 (async () => {
