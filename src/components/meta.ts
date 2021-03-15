@@ -34,9 +34,9 @@ export class Meta {
    * @param trackName
    * @param artist
    */
-  constructor(trackRank: number) {
+  constructor(trackRank: number, token: string) {
     this.trackRank = trackRank;
-    this.token = null;
+    this.token = token;
     this.artist = null;
     this.track = null;
     this.lastFmArtist = null;
@@ -59,34 +59,27 @@ export class Meta {
     // (we're setting it back to the original value when user clicks on 'Back to Chart' button)
     $('.app').scrollTop(0);
 
-    await this.loadToken();
     const { track, artist } = await this.loadHeroData();
 
-    this.renderHero(track, artist);
-
-    this.loadLyrics()
-      .then((lyrics) => {
-        this.renderLyrics(lyrics, artist);
-      })
-      .catch((err) => {
-        // update background even if lyrics couldn't be fetched.
-        Meta.renderLyricsBackground(this.artist as Spotify.Artist);
-      });
-
-    this.loadBioData()
-      .then((lastFmArtist) => {
-        this.renderBio(artist, lastFmArtist);
-      })
-      .catch((err) => console.log(err));
+    return Promise.all([
+      this.renderHero(track, artist),
+      this.loadLyrics()
+        .then((lyrics) => {
+          this.renderLyrics(lyrics, artist);
+        })
+        .catch((err) => {
+          // update background even if lyrics couldn't be fetched.
+          Meta.renderLyricsBackground(this.artist as Spotify.Artist);
+        }),
+      this.loadBioData()
+        .then((lastFmArtist) => {
+          this.renderBio(artist, lastFmArtist);
+        })
+        .catch((err) => console.log(err)),
+    ]);
   }
 
   // Data Loaders
-  private async loadToken() {
-    const token = await getToken();
-
-    this.token = token;
-    return token;
-  }
 
   private async loadHeroData() {
     const { artist, track } = await getHeroData(
@@ -132,10 +125,8 @@ export class Meta {
       alt: track.name,
     });
 
-    // await sleep(2000);
-    // this.$hero.css({
-    //   opacity: 1,
-    // });
+    // await sleep(250);
+    // $('.meta').addClass('show');
   }
 
   private static getCategoriesHtml(

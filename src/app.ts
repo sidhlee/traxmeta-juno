@@ -21,23 +21,24 @@ const $app = $('.app');
   const playlistItems: Spotify.PlaylistItem[] = await getPlayListItems(token);
   const playlist = new Playlist(playlistItems);
   await playlist.render();
-  const topTrackMeta = new Meta(1);
+  const topTrackMeta = new Meta(1, token);
 
   await topTrackMeta.render();
   $('.spinner').hide();
   $chart.addClass('show');
+  $meta.addClass('show');
 
   let top = 0;
 
   $chartList.children().on('click', async function () {
-    console.log('click');
+    $meta.removeClass('show');
     const rank = this.dataset.rank as string;
 
     // remember scrollTop before setting it to 0 as we slide into meta section
     top = $app.scrollTop() as number;
 
-    const meta = new Meta(+rank);
-    meta.render();
+    const meta = new Meta(+rank, token);
+    await meta.render();
 
     $chart.removeClass('show');
     $meta.addClass('show');

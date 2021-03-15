@@ -147,7 +147,6 @@ a {
 @mixin reset-visibility {
   position: relative;
   transform: translateX(0%);
-  opacity: 1;
   overflow-y: scroll;
 }
 
@@ -376,6 +375,7 @@ a {
 
   @media (min-width: $desktop) {
     @include reset-visibility;
+    opacity: 1;
     flex: 1 1 $mobile;
 
     .chart-item {
@@ -412,6 +412,7 @@ a {
   opacity: 0;
 
   &.show {
+    transition: opacity 2s ease;
     transform: translateX(0%);
     opacity: 1;
   }
@@ -425,7 +426,6 @@ a {
 
   @media (min-width: $desktop) {
     @include reset-visibility;
-
     flex: 2.5 2.5 $tablet;
     max-width: $desktop;
   }
