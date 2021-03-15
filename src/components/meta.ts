@@ -1,6 +1,6 @@
 import * as Spotify from '../models/spotify';
 import * as LastFm from '../models/last-fm';
-import { getArtist, formatDuration } from '../utils';
+import { formatArtist, formatDuration, sleep } from '../utils';
 import {
   getHeroData,
   getLyrics,
@@ -27,6 +27,7 @@ export class Meta {
   private trackRank: number;
   private lastFmArtist: LastFm.Artist | null;
   private lyrics: string = '';
+  private $hero: JQuery = $('.meta__hero');
   /**
    * Creates meta information for given track.
    * @param id spotify track id
@@ -115,10 +116,13 @@ export class Meta {
   private async renderHero(track: Spotify.Track, artist: Spotify.Artist) {
     // TODO: fix meta not scrolling to top on mobile
     $('.meta').scrollTop(0);
+    // hide before populating content
+
+    this.$hero.css('background-image', `url("${track.album.images[0].url}")`);
     // Text content
     $('.track-rank > span').text(this.trackRank);
     $('.track-title').text(track.name);
-    $('.track-artist > span').text(getArtist(track));
+    $('.track-artist > span').text(formatArtist(track));
     $('.track-categories').html(Meta.getCategoriesHtml(artist, track));
     $('.track-stats').html(Meta.getStatsHtml(track));
 
@@ -128,10 +132,10 @@ export class Meta {
       alt: track.name,
     });
 
-    $('.meta__hero').css(
-      'background-image',
-      `url("${track.album.images[0].url}")`
-    );
+    // await sleep(2000);
+    // this.$hero.css({
+    //   opacity: 1,
+    // });
   }
 
   private static getCategoriesHtml(

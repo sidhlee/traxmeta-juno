@@ -10,8 +10,11 @@ $wide: 1600px;
   --clr-accent: #61aaba;
   --clr-danger: #bd3200;
   --text-main: #ffffff;
-  --text-muted: #959595;
+  --text-muted: rgb(149, 149, 149);
   --text-soft: #dfdfdf;
+
+  --border-transparent: rgba(149, 149, 149, 0);
+  --border: rgba(149, 149, 149, 1);
 
   --fz-xs: 0.75rem;
   --fz-sm: 0.9rem;
@@ -21,6 +24,7 @@ $wide: 1600px;
   --fz-meta-artist: 1.25rem;
 
   --z-meta-header: 1000;
+  --z-spinner: 2000;
 }
 
 html {
@@ -150,11 +154,44 @@ a {
 /*  Components */
 .chart-item {
   height: auto;
+  position: relative;
+  opacity: 0;
+
+  &.slide {
+    animation: slide 500ms forwards;
+  }
+  @for $i from 1 through 20 {
+    &:nth-child(#{$i}) {
+      animation-delay: calc(75ms + 80 * #{$i}ms);
+    }
+  }
+  @for $i from 21 through 200 {
+    &:nth-child(#{$i}) {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide {
+    0% {
+      transform: translate3d(-5em, 0, 0);
+      opacity: 0.1;
+    }
+    100% {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    }
+  }
+
   // max-height: 4rem;
   display: flex;
   align-items: center;
   font-size: var(--fz-sm);
-  border-bottom: 1px solid var(--text-muted);
+  border-bottom: 1px solid;
+  border-color: var(--border);
+  // &.border {
+  //   border-color: var(--border);
+  // }
+
   .chart-item__cover {
     height: 100%;
     img {
@@ -189,11 +226,14 @@ a {
     }
   }
 
-  transition: background-color 200ms ease;
   &:hover {
     background-color: var(--clr-primary);
     cursor: pointer;
   }
+
+  // &.flip {
+  //   transform: rotateX(180deg);
+  // }
 }
 
 .pill {
@@ -201,6 +241,95 @@ a {
   border-color: currentColor;
   padding: 0.2em 0.3em;
   border-radius: 0.25rem;
+}
+
+.spinner {
+  position: absolute;
+  z-index: var(--z-spinner);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--clr-primary);
+  .logo {
+    width: 10rem;
+  }
+}
+
+.loader {
+  font-size: 10px;
+  margin: 50px auto;
+  text-indent: -9999em;
+  width: 11em;
+  height: 11em;
+  border-radius: 50%;
+  background: #61aaba;
+  background: -moz-linear-gradient(
+    left,
+    #61aaba 10%,
+    rgba(97, 170, 186, 0) 42%
+  );
+  background: -webkit-linear-gradient(
+    left,
+    #61aaba 10%,
+    rgba(97, 170, 186, 0) 42%
+  );
+  background: -o-linear-gradient(left, #61aaba 10%, var(--clr-primary) 42%);
+  background: -ms-linear-gradient(left, #61aaba 10%, var(--clr-primary) 42%);
+  background: linear-gradient(to right, #61aaba 10%, var(--clr-primary) 42%);
+  position: relative;
+  -webkit-animation: load3 1.4s infinite linear;
+  animation: load3 1.4s infinite linear;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.loader:before {
+  width: 50%;
+  height: 50%;
+  background: #61aaba;
+  border-radius: 100% 0 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '';
+}
+.loader:after {
+  background: var(--clr-primary);
+  width: 75%;
+  height: 75%;
+  border-radius: 50%;
+  content: '';
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+@-webkit-keyframes load3 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load3 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
 /* Layout */
@@ -278,7 +407,7 @@ a {
   height: 100%;
   background: var(--clr-primary);
 
-  transition: all 250ms ease;
+  transition: transform 300ms ease;
   transform: translateX(100%);
   opacity: 0;
 
@@ -310,6 +439,7 @@ a {
   height: 100%;
   position: relative;
   z-index: -10;
+
   &::after {
     content: '';
     position: absolute;
@@ -411,7 +541,7 @@ a {
       box-shadow: 0px 4px 23px -3px rgba(0, 0, 0, 0.25);
     }
   }
-  /* fMeta hero section media queries */
+  /* Meta hero section media queries */
   @media (min-width: $tablet) {
     min-width: 20%;
     .track-info__cover {

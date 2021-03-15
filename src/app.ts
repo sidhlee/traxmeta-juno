@@ -9,25 +9,28 @@ import {
   getHeroData,
 } from './data/mock';
 
+const $chart = $('.chart');
+const $chartList = $('.chart-list');
+const $meta = $('.meta');
+const $app = $('.app');
+
 // TODO: slide between chart and meta with gesture (on mobile)
 (async () => {
   const token = await getToken();
+
   const playlistItems: Spotify.PlaylistItem[] = await getPlayListItems(token);
   const playlist = new Playlist(playlistItems);
-  playlist.render();
-
-  const $chart = $('.chart');
-  const $chartItems = $('.chart-item');
-  const $meta = $('.meta');
-  const $app = $('.app');
-
+  await playlist.render();
   const topTrackMeta = new Meta(1);
 
-  topTrackMeta.render();
+  await topTrackMeta.render();
+  $('.spinner').hide();
+  $chart.addClass('show');
 
   let top = 0;
 
-  $chartItems.on('click', async function () {
+  $chartList.children().on('click', async function () {
+    console.log('click');
     const rank = this.dataset.rank as string;
 
     // remember scrollTop before setting it to 0 as we slide into meta section
