@@ -1,12 +1,7 @@
 import * as Spotify from '../models/spotify';
 import * as LastFm from '../models/last-fm';
 import { formatArtist, formatDuration, sleep } from '../utils';
-import {
-  getHeroData,
-  getLyrics,
-  getToken,
-  getLastFmArtist,
-} from '../data/mock';
+import { getHeroData, getLyrics, getToken, getLastFmArtist } from '../data';
 
 export interface MetaData {
   track: Spotify.Track;
@@ -107,7 +102,6 @@ export class Meta {
   // Renderers
 
   private async renderHero(track: Spotify.Track, artist: Spotify.Artist) {
-    // TODO: fix meta not scrolling to top on mobile
     $('.meta').scrollTop(0);
     // hide before populating content
 

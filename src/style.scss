@@ -412,7 +412,7 @@ a {
   opacity: 0;
 
   &.show {
-    transition: opacity 2s ease;
+    transition: opacity 1s ease;
     transform: translateX(0%);
     opacity: 1;
   }

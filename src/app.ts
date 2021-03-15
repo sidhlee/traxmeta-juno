@@ -2,12 +2,7 @@ import './style.scss';
 import { Playlist } from './components/playlist';
 import { Meta } from './components/meta';
 import * as Spotify from './models/spotify';
-import {
-  getPlayListItems,
-  getMetaData,
-  getToken,
-  getHeroData,
-} from './data/mock';
+import { getPlayListItems, getMetaData, getToken, getHeroData } from './data';
 
 const $chart = $('.chart');
 const $chartList = $('.chart-list');
@@ -36,11 +31,9 @@ const $app = $('.app');
 
     // remember scrollTop before setting it to 0 as we slide into meta section
     top = $app.scrollTop() as number;
-
+    $chart.removeClass('show');
     const meta = new Meta(+rank, token);
     await meta.render();
-
-    $chart.removeClass('show');
     $meta.addClass('show');
   });
 
@@ -51,7 +44,3 @@ const $app = $('.app');
     $meta.removeClass('show');
   });
 })();
-
-// TODO: fade components in once response is received
-// TODO: slide in rank after meta fade-in
-// TODO: animate (flip) chart-items on mount
