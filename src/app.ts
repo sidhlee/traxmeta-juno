@@ -1,46 +1,89 @@
 import './style.scss';
 import { Playlist } from './components/playlist';
 import { Meta } from './components/meta';
-import * as Spotify from './models/spotify';
-import { getPlayListItems, getToken } from './data';
-
-const $chart = $('.chart');
-const $chartList = $('.chart-list');
-const $meta = $('.meta');
-const $app = $('.app');
+import { getToken } from './data';
 
 // TODO: slide between chart and meta with gesture (on mobile)
-(async () => {
-  // load token and render top 200
-  const token = await getToken();
-  const playlistItems: Spotify.PlaylistItem[] = await getPlayListItems(token);
-  const playlist = new Playlist(playlistItems);
-  await playlist.render();
-  $('.spinner').hide();
-  $chart.addClass('show');
 
-  const topTrackMeta = new Meta(1, token);
-  await topTrackMeta.render();
-  $meta.addClass('show');
+class App {
+  private static scrollTop = 0;
+  private static $chart = $('.chart');
+  private static $meta = $('.meta');
+  private static $app = $('.app');
+  private static $chartList = $('.chart-list');
+  private token = '';
+  constructor() {}
 
-  let top = 0;
+  public async run() {
+    await this.loadToken();
 
-  $chartList.children().on('click', async function () {
-    $meta.removeClass('show');
-    const rank = this.dataset.rank as string;
+    // show top 200
+    const playlist = new Playlist(this.token);
+    await playlist.render();
+    this.bindChartItemClickHandler();
+    this.showChart();
 
+    // show meta for top track
+    const topTrackMeta = new Meta(1, this.token);
+    await topTrackMeta.render();
+    App.showMeta();
+    this.bindBackToChartClickHandler();
+  }
+
+  private async loadToken() {
+    this.token = await getToken();
+  }
+
+  private showChart() {
+    $('.spinner').hide(); // we just want to make spinner disappear.
+    App.$chart.addClass('show'); // specific css rules are applied when we're "showing" chart component
+  }
+
+  private bindChartItemClickHandler() {
+    const token = this.token;
+
+    App.$chartList.children('.chart-item').on('click', async function () {
+      App.hideMeta();
+      App.hideChart();
+
+      App.rememberScrollPosition();
+
+      const meta = new Meta(+(this.dataset.rank as string), token);
+      await meta.render();
+
+      App.showMeta();
+    });
+  }
+
+  private bindBackToChartClickHandler() {
+    $('.back-btn').on('click', () => {
+      // Set the scrollTop back to where it was before sliding into meta section
+      App.scrollToRememberedPosition(App.scrollTop);
+      App.showChart();
+      App.hideMeta();
+    });
+  }
+
+  private static hideMeta() {
+    App.$meta.removeClass('show');
+  }
+  private static showMeta() {
+    App.$meta.addClass('show');
+  }
+  private static hideChart() {
+    App.$chart.removeClass('show');
+  }
+  private static showChart() {
+    App.$chart.addClass('show');
+  }
+  private static rememberScrollPosition() {
     // remember scrollTop before setting it to 0 as we slide into meta section
-    top = $app.scrollTop() as number;
-    $chart.removeClass('show');
-    const meta = new Meta(+rank, token);
-    await meta.render();
-    $meta.addClass('show');
-  });
+    App.scrollTop = App.$app.scrollTop() as number;
+  }
+  private static scrollToRememberedPosition(previousScrollTop: number) {
+    App.$app.scrollTop(previousScrollTop);
+  }
+}
 
-  $('.back-btn').on('click', function () {
-    // Set the scrollTop back to where it was before sliding into meta section
-    $app.scrollTop(top);
-    $chart.addClass('show');
-    $meta.removeClass('show');
-  });
-})();
+const app = new App();
+app.run();

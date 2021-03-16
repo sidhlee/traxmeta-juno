@@ -9,6 +9,7 @@ export class Track {
   private artist: string;
   private id: string;
   public html: string;
+  public $: JQuery<HTMLElement>;
   /** Spotify artist id */
   artistId: string;
   constructor(playlistItem: Spotify.PlaylistItem, rank: number) {
@@ -35,9 +36,6 @@ export class Track {
         </div>            
       </li>
     `;
-  }
-
-  public get $() {
-    return $(this.html);
+    this.$ = $(this.html);
   }
 }
