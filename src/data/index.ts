@@ -1,5 +1,4 @@
 import { LastFm, Spotify } from 'models';
-import { MetaData } from '../components/meta';
 
 export async function request(ajaxSettings: JQueryAjaxSettings) {
   const response = await $.ajax(ajaxSettings);
@@ -26,31 +25,6 @@ export async function getPlayListItems(token: string) {
   });
 
   return playlistItems;
-}
-
-export async function getMetaData(token: string, trackRank: number) {
-  const { track_id, artist_id, title, rank, artist_name } = $('.chart-item')[
-    trackRank - 1
-  ].dataset;
-
-  const data = {
-    token,
-    spotifyArtistId: artist_id,
-    spotifyTrackId: track_id,
-    artistName: artist_name,
-    trackName: title,
-  };
-
-  const response = await request({
-    url: '/.netlify/functions/get-meta',
-    method: 'post',
-    data,
-  });
-
-  return {
-    ...response,
-    trackRank,
-  } as MetaData;
 }
 
 export async function getHeroData(token: string, trackRank: number) {

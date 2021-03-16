@@ -21,7 +21,8 @@ class App {
     const playlist = new Playlist(this.token);
     await playlist.render();
     this.bindChartItemClickHandler();
-    this.showChart();
+    App.hideSpinner();
+    App.showChart();
 
     // show meta for top track
     const topTrackMeta = new Meta(1, this.token);
@@ -32,11 +33,6 @@ class App {
 
   private async loadToken() {
     this.token = await getToken();
-  }
-
-  private showChart() {
-    $('.spinner').hide(); // we just want to make spinner disappear.
-    App.$chart.addClass('show'); // specific css rules are applied when we're "showing" chart component
   }
 
   private bindChartItemClickHandler() {
@@ -64,6 +60,17 @@ class App {
     });
   }
 
+  private static rememberScrollPosition() {
+    // remember scrollTop before setting it to 0 as we slide into meta section
+    App.scrollTop = App.$app.scrollTop() as number;
+  }
+  private static scrollToRememberedPosition(previousScrollTop: number) {
+    App.$app.scrollTop(previousScrollTop);
+  }
+
+  private static hideSpinner() {
+    $('.spinner').hide(); // we just want to make spinner disappear.
+  }
   private static hideMeta() {
     App.$meta.removeClass('show');
   }
@@ -75,13 +82,6 @@ class App {
   }
   private static showChart() {
     App.$chart.addClass('show');
-  }
-  private static rememberScrollPosition() {
-    // remember scrollTop before setting it to 0 as we slide into meta section
-    App.scrollTop = App.$app.scrollTop() as number;
-  }
-  private static scrollToRememberedPosition(previousScrollTop: number) {
-    App.$app.scrollTop(previousScrollTop);
   }
 }
 
