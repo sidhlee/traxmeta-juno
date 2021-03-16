@@ -17,21 +17,22 @@ exports.handler = async function (event, context) {
     const { body } = event;
     const { token } = qs.parse(body);
 
-    const { data: first100 } = await axios({
-      url: process.env.URL_PLAYLIST_SPOTIFY,
-      method: 'get',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    const { data: second100 } = await axios({
-      url: process.env.URL_PLAYLIST_SPOTIFY + '?offset=100&limit=100',
-      method: 'get',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const [{ data: first100 }, { data: second100 }] = await Promise.all([
+      axios({
+        url: process.env.URL_PLAYLIST_SPOTIFY,
+        method: 'get',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      axios({
+        url: process.env.URL_PLAYLIST_SPOTIFY + '?offset=100&limit=100',
+        method: 'get',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+    ]);
 
     const playlist = first100.items.concat(second100.items);
 
