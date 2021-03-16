@@ -11,8 +11,8 @@ const $app = $('.app');
 
 // TODO: slide between chart and meta with gesture (on mobile)
 (async () => {
+  // load token and render top 200
   const token = await getToken();
-
   const playlistItems: Spotify.PlaylistItem[] = await getPlayListItems(token);
   const playlist = new Playlist(playlistItems);
   await playlist.render();
