@@ -37,8 +37,7 @@
   },
   "scripts": {
     "start": "env-cmd -f src/config/dev.env webpack serve --config webpack.dev.js",
-    "build": "env-cmd -f src/config/dev.env webpack --config webpack.prod.js",
-    "prod": "env-cmd -f src/config/dev.env webpack serve"
+    "build": "env-cmd -f src/config/dev.env webpack --config webpack.prod.js"
   },
   "dependencies": {
     "axios": "^0.21.1",

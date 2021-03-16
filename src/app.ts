@@ -2,7 +2,7 @@ import './style.scss';
 import { Playlist } from './components/playlist';
 import { Meta } from './components/meta';
 import * as Spotify from './models/spotify';
-import { getPlayListItems, getMetaData, getToken, getHeroData } from './data';
+import { getPlayListItems, getToken } from './data';
 
 const $chart = $('.chart');
 const $chartList = $('.chart-list');
@@ -16,11 +16,11 @@ const $app = $('.app');
   const playlistItems: Spotify.PlaylistItem[] = await getPlayListItems(token);
   const playlist = new Playlist(playlistItems);
   await playlist.render();
-  const topTrackMeta = new Meta(1, token);
-
-  await topTrackMeta.render();
   $('.spinner').hide();
   $chart.addClass('show');
+
+  const topTrackMeta = new Meta(1, token);
+  await topTrackMeta.render();
   $meta.addClass('show');
 
   let top = 0;

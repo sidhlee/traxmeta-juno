@@ -82,14 +82,19 @@ export async function getLyrics(artistName: string, trackName: string) {
     artistName,
     trackName,
   };
+  console.log('getLyrics');
+  try {
+    const lyrics: string = await request({
+      url: '/.netlify/functions/get-lyrics',
+      method: 'post',
+      data,
+    });
+    console.log('aaa', lyrics);
 
-  const lyrics: string = await request({
-    url: '/.netlify/functions/get-lyrics',
-    method: 'post',
-    data,
-  });
-
-  return lyrics;
+    return lyrics;
+  } catch (err) {
+    return ''; // return empty string on Error response
+  }
 }
 
 export async function getLastFmArtist(artistName: string) {

@@ -174,7 +174,7 @@ export class Meta {
       );
     } else {
       $('.lyrics-text').html(
-        '<p class="not-available">Lyrics not available at the moment.</p>'
+        '<p class="not-available">Lyrics currently not available.</p>'
       );
     }
 

@@ -14,9 +14,9 @@ module.exports = merge(common, {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/dist', // tell webpack to serve the bundle at '/dist' folder (by default it serves at the same path as index.html)
   },
-  devServer: {
-    contentBase: './dist', // only needed if you want to server static files
-  },
+  // devServer: {
+  //   contentBase: './dist', // only needed if you want to server static files
+  // },
   module: {
     rules: [
       {
