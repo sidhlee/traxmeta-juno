@@ -12,7 +12,7 @@ export class MetaHero {
     $('.meta').scrollTop(0);
     // hide before populating content
 
-    $('.hero').css(
+    $('.meta__hero').css(
       'background-image',
       `url("${this.track.album.images[0].url}")`
     );
