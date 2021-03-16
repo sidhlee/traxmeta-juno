@@ -178,3 +178,4 @@ const { data } = await axios({
 - [MusicBrainz Cover Art Archive API](https://musicbrainz.org/doc/Cover_Art_Archive/API)
 - [Lyrics.ovh](http://docs.lyricsovh.apiary.io/) - Simple API to retrieve the lyrics of a song
 - [hqjs](https://github.com/hqjs/hq) - Lightning fast, zero configuration, web application development server
+- [Webpack.Loaders.Quickstart](https://catcherholms.medium.com/webpack-loaders-quickstart-7703a0854f1e)
