@@ -56,14 +56,13 @@ export async function getLyrics(artistName: string, trackName: string) {
     artistName,
     trackName,
   };
-  console.log('getLyrics');
+
   try {
     const lyrics: string = await request({
       url: '/.netlify/functions/get-lyrics',
       method: 'post',
       data,
     });
-    console.log('aaa', lyrics);
 
     return lyrics;
   } catch (err) {
