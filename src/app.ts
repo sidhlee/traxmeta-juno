@@ -35,6 +35,7 @@ class App {
     this.token = await getToken();
   }
 
+  // TODO: rewrite this using event-delegation!
   private bindChartItemClickHandler() {
     const token = this.token;
 
