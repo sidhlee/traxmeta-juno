@@ -35,11 +35,12 @@ class App {
     this.token = await getToken();
   }
 
-  // TODO: rewrite this using event-delegation!
+  // We're binding handlers here instead of inside each component (Chart and Meta) because
+  // each handler affects both components.
   private bindChartItemClickHandler() {
     const token = this.token;
 
-    App.$chartList.children('.chart-item').on('click', async function () {
+    App.$chartList.on('click', '.chart-item', async function (e) {
       App.hideMeta();
       App.hideChart();
 
