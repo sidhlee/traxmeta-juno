@@ -1,4 +1,6 @@
-# jQuery Music App
+# TraxMeta
+
+A jQuery app that displays Spotify Global Top200 chart and shows meta information about the track user selected.
 
 ## Things I've learned
 
