@@ -1,11 +1,6 @@
 const axios = require('axios').default;
 const qs = require('qs');
 
-const path = require('path');
-const envConfig = require('dotenv').config({
-  path: path.resolve(__dirname, '../../src/config/dev.env'),
-});
-
 Object.entries(envConfig.parsed || {}).forEach(
   ([key, value]) => (process.env[key] = value)
 );
