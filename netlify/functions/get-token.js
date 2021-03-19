@@ -21,6 +21,8 @@ exports.handler = async function (event) {
     const { data } = await axios({
       method: 'POST',
       url: process.env.URL_TOKEN_SPOTIFY,
+      // Spotify API accepts parameters encoded in application/x-www-form-urlencoded
+      // so we need to turn obj into key=value with qs.stringify
       data: qs.stringify({
         grant_type: 'client_credentials',
       }),

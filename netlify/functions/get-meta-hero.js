@@ -1,6 +1,4 @@
 const axios = require('axios').default;
-const qs = require('qs');
-
 const path = require('path');
 const envConfig = require('dotenv').config({
   path: path.resolve(__dirname, '../../src/config/dev.env'),
@@ -11,10 +9,13 @@ Object.entries(envConfig.parsed || {}).forEach(
 );
 
 exports.handler = async function (event) {
-  if (event.httpMethod !== 'POST') return;
+  if (event.httpMethod !== 'GET') return;
 
-  const { body } = event;
-  const { spotifyArtistId, spotifyTrackId, token } = qs.parse(body);
+  const {
+    spotifyArtistId,
+    spotifyTrackId,
+    token,
+  } = event.queryStringParameters;
 
   const config = {
     timeout: 1000,

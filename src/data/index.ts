@@ -18,7 +18,7 @@ export async function getToken() {
 export async function getPlayListItems(token: string) {
   const playlistItems: Spotify.PlaylistItem[] = await request({
     url: '/.netlify/functions/get-playlist',
-    method: 'post',
+    method: 'get',
     data: {
       token,
     },
@@ -40,7 +40,7 @@ export async function getHeroData(token: string, trackRank: number) {
     artist,
   }: { track: Spotify.Track; artist: Spotify.Artist } = await request({
     url: '/.netlify/functions/get-meta-hero',
-    method: 'post',
+    method: 'get',
     data,
   });
 
@@ -60,7 +60,7 @@ export async function getLyrics(artistName: string, trackName: string) {
   try {
     const lyrics: string = await request({
       url: '/.netlify/functions/get-lyrics',
-      method: 'post',
+      method: 'get',
       data,
     });
 
@@ -76,7 +76,7 @@ export async function getLastFmArtist(artistName: string) {
 
   const lastFmArtist: LastFm.Artist = await request({
     url: '/.netlify/functions/get-lastfm-artist',
-    method: 'post',
+    method: 'get',
     data,
   });
 

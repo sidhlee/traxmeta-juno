@@ -1,6 +1,4 @@
 const axios = require('axios').default;
-const qs = require('qs');
-
 const path = require('path');
 const envConfig = require('dotenv').config({
   path: path.resolve(__dirname, '../../src/config/dev.env'),
@@ -11,12 +9,10 @@ Object.entries(envConfig.parsed || {}).forEach(
 );
 
 exports.handler = async function (event, context) {
-  if (event.httpMethod !== 'POST') return;
+  if (event.httpMethod !== 'GET') return;
 
   try {
-    const { body } = event;
-    const { token } = qs.parse(body);
-
+    const { token } = event.queryStringParameters;
     const [{ data: first100 }, { data: second100 }] = await Promise.all([
       axios({
         url: process.env.URL_PLAYLIST_SPOTIFY,

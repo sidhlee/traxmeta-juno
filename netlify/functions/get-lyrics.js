@@ -1,6 +1,4 @@
 const axios = require('axios').default;
-const qs = require('qs');
-
 const path = require('path');
 const envConfig = require('dotenv').config({
   path: path.resolve(__dirname, '../../src/config/dev.env'),
@@ -11,10 +9,8 @@ Object.entries(envConfig.parsed || {}).forEach(
 );
 
 exports.handler = async function (event) {
-  if (event.httpMethod !== 'POST') return;
-
-  const { body } = event;
-  const { artistName, trackName } = qs.parse(body);
+  if (event.httpMethod !== 'GET') return;
+  const { artistName, trackName } = event.queryStringParameters;
 
   const config = {
     timeout: 1000,
