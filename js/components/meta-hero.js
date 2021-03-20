@@ -1,4 +1,4 @@
-import { formatArtist, formatDuration } from '../utils.js';
+import { formatArtist, formatDuration } from '../utils/index.js';
 export class MetaHero {
   constructor(trackRank, track, artist) {
     this.trackRank = trackRank;
