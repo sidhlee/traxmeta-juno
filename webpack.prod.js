@@ -2,7 +2,6 @@ const path = require('path');
 const { merge } = require('webpack-merge');
 const common = require('./webpack.common.js');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = merge(common, {
   mode: 'production',
@@ -19,40 +18,28 @@ module.exports = merge(common, {
     rules: [
       {
         test: /\.s[ac]ss$/i,
-        // Chain the sass-loader with the css-loader and the style-loader to immediately apply all styles to the DOM or the mini-css-extract-plugin to extract it into a separate file.
         use: [
-          MiniCssExtractPlugin.loader,
-          {
-            // Translates CSS into CommonJS
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-            },
-          },
-          {
-            // Compiles Sass to CSS
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true,
-            },
-          },
+          // Creates `style` nodes from JS strings
+          'style-loader',
+          // Translates CSS into CommonJS
+          'css-loader',
+          // Compiles Sass to CSS
+          'sass-loader',
         ],
       },
+      {
+        test: /\.(jpe?g|ico|png|gif|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
+        type: 'asset/resource',
+      },
+      // {
+      //   test: /\.html$/,
+      //   loader: 'html-loader',
+      //   // options: {
+      //   //   sources: false, // don't process src attribute
+      //   // },
+      // },
     ],
   },
 
-  plugins: [
-    new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
-      filename: '[name].css',
-      chunkFilename: '[id].css',
-    }),
-    // copy files in assets folder to dist/assets/
-    new CopyPlugin({
-      patterns: [
-        { from: path.resolve(__dirname, "src/assets"), to: "assets"}
-      ]
-    })
-  ],
+  plugins: [],
 });

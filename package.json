@@ -36,12 +36,13 @@
     "webpack-merge": "^5.7.3"
   },
   "scripts": {
-    "start": "env-cmd -f src/config/dev.env webpack serve --config webpack.dev.js",
+    "start": "webpack serve --config webpack.prod.js",
     "build": "webpack --config webpack.prod.js"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "env-cmd": "^10.1.0",
+    "jquery": "^3.6.0",
     "process": "^0.11.10",
     "qs": "^6.9.6"
   },
