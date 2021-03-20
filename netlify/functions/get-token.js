@@ -1,10 +1,6 @@
 const axios = require('axios').default;
 const qs = require('qs');
 
-Object.entries(envConfig.parsed || {}).forEach(
-  ([key, value]) => (process.env[key] = value)
-);
-
 exports.handler = async function (event) {
   if (event.httpMethod !== 'GET') return;
 
