@@ -4,3 +4,4 @@
   publish = "dist"
   targetPort = 8080
   port = 5000
+[build]
