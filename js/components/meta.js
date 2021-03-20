@@ -1,5 +1,5 @@
 import { MetaHero } from './meta-hero.js';
-import { getHeroData, getLyrics, getLastFmArtist } from '../data.js';
+import { getHeroData, getLyrics, getLastFmArtist } from '../data/index.js';
 import { MetaLyrics } from './meta-lyrics.js';
 import { MetaBio } from './meta-bio.js';
 export class Meta {

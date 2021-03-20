@@ -1,4 +1,4 @@
-import { getPlayListItems } from '../data.js';
+import { getPlayListItems } from '../data/index.js';
 import { Track } from './track.js';
 export class Playlist {
   constructor(token) {
