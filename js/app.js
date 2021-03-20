@@ -1,6 +1,6 @@
 import { Playlist } from './components/playlist.js';
 import { Meta } from './components/meta.js';
-import { getToken } from './data.js';
+import { getToken } from './data/index.js';
 // TODO: slide between chart and meta with gesture (on mobile)
 class App {
   constructor() {
