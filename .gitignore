@@ -1,5 +1,0 @@
-node_modules
-**/config/*.env*
-dist
-.DS_Store
-netlify.toml
