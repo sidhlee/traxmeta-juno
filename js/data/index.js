@@ -5,14 +5,14 @@ export async function request(ajaxSettings) {
 }
 export async function getToken() {
   const response = await request({
-    url: 'https://traxmeta.netlify.com/.netlify/functions/get-token',
+    url: 'https://traxmeta.netlify.app/.netlify/functions/get-token',
     method: 'get',
   });
   return response.access_token;
 }
 export async function getPlayListItems(token) {
   const playlistItems = await request({
-    url: '/.netlify/functions/get-playlist',
+    url: 'https://traxmeta.netlify.app/.netlify/functions/get-playlist',
     method: 'get',
     data: {
       token,
@@ -28,7 +28,7 @@ export async function getHeroData(token, trackRank) {
     spotifyTrackId: track_id,
   };
   const { track, artist } = await request({
-    url: '/.netlify/functions/get-meta-hero',
+    url: 'https://traxmeta.netlify.app/.netlify/functions/get-meta-hero',
     method: 'get',
     data,
   });
@@ -45,7 +45,7 @@ export async function getLyrics(artistName, trackName) {
   };
   try {
     const lyrics = await request({
-      url: '/.netlify/functions/get-lyrics',
+      url: 'https://traxmeta.netlify.app/.netlify/functions/get-lyrics',
       method: 'get',
       data,
     });
@@ -58,7 +58,7 @@ export async function getLastFmArtist(artistName) {
   const name = artistName.split(',')[0];
   const data = { artistName: name };
   const lastFmArtist = await request({
-    url: '/.netlify/functions/get-lastfm-artist',
+    url: 'https://traxmeta.netlify.app/.netlify/functions/get-lastfm-artist',
     method: 'get',
     data,
   });
