@@ -440,7 +440,8 @@ a {
   height: 100%;
   position: relative;
   z-index: -10;
-  // background-size: cover; // doesn't look good as tiles
+  //background-size: contain; // doesn't look good as tiles
+  background-repeat: repeat; // (default: repeat-x)
 
   &::after {
     content: '';
