@@ -72,5 +72,5 @@ App.$chart = $('.chart');
 App.$meta = $('.meta');
 App.$app = $('.app');
 App.$chartList = $('.chart-list');
-const app = new App();
-app.run();
+
+export default App;
