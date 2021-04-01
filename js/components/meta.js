@@ -15,9 +15,7 @@ export class Meta {
     this.token = token;
     this.artist = null;
     this.lastFmArtist = null;
-    const { track_id, artist_id, title, artist_name } = $('.chart-item')[
-      trackRank - 1
-    ].dataset;
+    const { title, artist_name } = $('.chart-item')[trackRank - 1].dataset;
     this.artistName = artist_name;
     this.trackName = title;
   }
@@ -30,6 +28,8 @@ export class Meta {
     const { track, artist } = await this.loadHeroData();
     const hero = new MetaHero(this.trackRank, track, artist);
     hero.render();
+
+    // load lyrics and bio concurrently
     return Promise.all([
       this.loadLyrics()
         .then((lyrics) => {
