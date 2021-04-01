@@ -1,6 +1,5 @@
-import App from './js/app';
+import app from './js/app.js';
 
 $(function () {
-  const app = new App();
   app.run();
 });
